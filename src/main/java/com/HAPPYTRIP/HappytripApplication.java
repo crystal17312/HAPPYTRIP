@@ -28,8 +28,7 @@ public class HappytripApplication {
 		a.print();
 
 
-		System.out.println("수정이 바보");
-		System.out.println("진원 뚱바보");
+		System.out.println("진원이 메롱 바보");
 
 	}
 

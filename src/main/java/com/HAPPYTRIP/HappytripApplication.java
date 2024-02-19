@@ -23,11 +23,13 @@ public class HappytripApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HappytripApplication.class, args);
 
+
 		A a=new A();
 		a.print();
 
 
 		System.out.println("수정이 바보");
+		System.out.println("진원 뚱바보");
 
 	}
 

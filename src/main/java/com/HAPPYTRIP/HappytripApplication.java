@@ -10,6 +10,8 @@ public class HappytripApplication {
 		SpringApplication.run(HappytripApplication.class, args);
 
 		System.out.println("진원 뚱바보");
+
 	}
+
 
 }

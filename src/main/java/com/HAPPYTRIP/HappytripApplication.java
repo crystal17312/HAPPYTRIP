@@ -8,6 +8,10 @@ public class HappytripApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(HappytripApplication.class, args);
+
+
+		System.out.println("수정이 바보");
 	}
+
 
 }

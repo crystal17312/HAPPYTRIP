@@ -16,9 +16,9 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     //회원생성
-    public Member create(String memberId, String password, String name, String phone, LocalDateTime birthday) {
+    public Member create(String userId, String password, String name, String phone, LocalDateTime birthday) {
         Member member = new Member();
-        member.setMemberId(memberId);
+        member.setUserId(userId);
         member.setPassword(passwordEncoder.encode(password));
         member.setName(name);
         member.setPhone(phone);

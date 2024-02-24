@@ -1,9 +1,6 @@
 package com.HAPPYTRIP.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
@@ -12,9 +9,10 @@ public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long adminId;
+    @Column(name = "Admin_id")
+    private Long id;
 
-    private String id;
+    private String adminId;
 
     private String password;
 }

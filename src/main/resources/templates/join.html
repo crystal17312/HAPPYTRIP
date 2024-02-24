@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>회원가입</title>
+
+  <!--CSS-->
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{/css/join.css}" rel="stylesheet" />
+
+  <!--JS-->
+  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+  <!--jQuery-->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body class="bg-body-tertiary">
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <h3>회원가입</h3>
+    </div>
+
+    <form th:action="@{/member/join}" method="post" th:object="${memberForm}" onsubmit="return checkpw()">
+      <div class="row g-3">
+        <div class="col-12">
+          <label for="username" class="form-label">이름</label>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  placeholder="이름"
+                  th:field="*{name}"
+                  required
+          />
+        </div>
+
+        <div class="col-12">
+          <label for="id" class="form-label">아이디</label>
+          <div class="input-group">
+            <input type="text"
+                   class="form-control"
+                   id="id"
+                   placeholder="아이디"
+                   th:field="*{id}"
+                   required />
+            <button class="btn btn-primary" type="button" onclick="checkDuplicate()">중복확인</button>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <label for="password" class="form-label">비밀번호</label>
+          <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  placeholder="비밀번호"
+                  th:field="*{password}"
+                  required
+          />
+        </div>
+
+        <div class="col-12">
+          <label for="checkpassword" class="form-label">비밀번호 확인</label>
+          <input
+                  type="password"
+                  class="form-control"
+                  id="checkpassword"
+                  placeholder="비밀번호 확인"
+                  th:field="*{checkpassword}"
+                  required
+          /> <span id="check" style="color:red;"></span>
+        </div>
+
+        <div class="col-12">
+          <label for="phone" class="form-label">전화번호</label>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="phone"
+                  placeholder="000-0000-0000"
+                  th:field="*{phone}"
+                  required
+          />
+        </div>
+
+        <div class="col-12">
+          <label for="birthday" class="form-label">생년월일</label>
+          <input
+                  type="text"
+                  class="form-control"
+                  id="birthday"
+                  placeholder="000000(ex:240101)"
+                  th:field="*{birthday}"
+                  required
+          />
+        </div>
+      </div>
+
+
+      <hr class="my-4" />
+      <button id="join" class="btn btn-primary w-100 py-2" type="submit">
+        회원가입
+      </button>
+    </form>
+  </main>
+
+
+  <footer class="my-5 pt-5 text-body-secondary text-center text-small">
+    <p class="mb-1">&copy; 2017–2023 Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script th:inline="javascript">
+  $(document).ready(function() {
+    //비밀번호 일치
+    function checkpw() {
+      var userPW1 = document.getElementById("password").value;
+      var userPW2 = document.getElementById("checkpassword").value;
+
+      if (userPW1 != userPW2) {
+        document.getElementById('check').innerHTML = '비밀번호가 일치하지 않습니다. 다시 입력해 주세요';
+        return false;
+      }
+    }
+
+    //아이디 확인
+    function checkDuplicate() {
+      var userId = document.getElementById("id").value;
+
+      $.ajax({
+        type: "GET",
+        url: "/member/checkDuplicate/" + userId,
+        success: function (response) {
+          alert(response);
+        },
+        error: function (error) {
+          alert("중복된 아이디입니다.");
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>

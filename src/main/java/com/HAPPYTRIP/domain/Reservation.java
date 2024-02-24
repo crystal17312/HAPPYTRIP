@@ -10,12 +10,15 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long reservationId;
+    @Column(name = "reservation_id")
+    private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "member_id")
     private Member memberId;
 
     @ManyToOne
+    @JoinColumn(name = "flight_id")
     private Flight flightId;
 
     private int seatCount;

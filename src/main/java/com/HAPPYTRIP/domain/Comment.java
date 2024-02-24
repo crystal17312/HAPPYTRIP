@@ -12,9 +12,11 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
+    @Column(name = "Comment_id")
+    private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "board_id")
     private Board boardId;
 
     private String content;

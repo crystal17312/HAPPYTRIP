@@ -12,9 +12,11 @@ public class Notice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long noticeId;
+    @Column(name = "Notice_id")
+    private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "admin_id")
     private Admin adminId;
 
     private String title;

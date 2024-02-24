@@ -12,9 +12,11 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long boardId;
+    @Column(name = "Board_id")
+    private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "member_id")
     private Member memberId;
 
     private String title;

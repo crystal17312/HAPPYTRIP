@@ -24,7 +24,6 @@ public class MemberController {
     }
 
 
-
     @PostMapping("/join")
     public String join(@Valid MemberForm memberForm, BindingResult bindingResult) {
 
@@ -34,14 +33,15 @@ public class MemberController {
         }
 
         //if 비밀번호, 비밀번호 확인이 일치하지 않음
-        if (!memberForm.getPassword().equals(memberForm.getCheckpassword())) {
-
-            //errorCode는 "passwordInCorrect"로 정의
-            bindingResult.rejectValue("checkpassword", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
-            return "join";
-        }
+//        if (!memberForm.getPassword().equals(memberForm.getCheckpassword())) {
+//
+//            //errorCode는 "passwordInCorrect"로 정의
+//            bindingResult.rejectValue("checkpassword", "passwordInCorrect", "패스워드가 일치하지 않습니다.");
+//            return "join";
+//        }
 
         try {
+            System.out.println(memberForm.getId());
             memberService.create(memberForm.getId(), memberForm.getPassword(), memberForm.getName(),memberForm.getPhone(), memberForm.getBirthday());
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();

@@ -29,11 +29,11 @@ public class SecurityConfig {
                             .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                     XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
                     .formLogin((formLogin) -> formLogin
-                            .loginPage("/user/login")
-                            .defaultSuccessUrl("/user/home"))
+                            .loginPage("/member/login")
+                            .defaultSuccessUrl("/home"))
                     .logout((logout)->logout
-                            .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                            .logoutSuccessUrl("/user/home")
+                            .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                            .logoutSuccessUrl("/home")
                             .invalidateHttpSession(true)// 로그아웃 이후 세션 전체 삭제 여부
                     );
             return http.build();

@@ -2,16 +2,11 @@ package com.HAPPYTRIP.domain;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Setter
 public class MemberForm {
 
     @NotBlank(message = "아이디를 입력하세요.")
@@ -30,5 +25,5 @@ public class MemberForm {
     private String phone;
 
     @NotNull
-    private LocalDateTime birthday;
+    private String birthday;
 }

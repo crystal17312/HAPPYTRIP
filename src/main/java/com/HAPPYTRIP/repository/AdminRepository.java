@@ -1,13 +1,13 @@
 package com.HAPPYTRIP.repository;
 
-import com.HAPPYTRIP.domain.Member;
+import com.HAPPYTRIP.domain.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface AdminRepository extends JpaRepository<Admin, Long> {
 
-    Optional<Member> findByUserId(String userId);
+    Optional<Admin> findByAdmin(String admin);
 }

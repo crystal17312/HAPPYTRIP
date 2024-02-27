@@ -23,7 +23,7 @@ public class Member {
 
     private String phone;
 
-    private LocalDateTime birthday;
+    private String birthday;
 
 
 

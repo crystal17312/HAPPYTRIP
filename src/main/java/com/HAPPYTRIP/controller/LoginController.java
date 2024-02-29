@@ -12,8 +12,7 @@ public class LoginController {
     //로그인
     @GetMapping("/login")
     public String LoginForm() {
-        return "/login";
+        return "login";
     }
-
 
 }

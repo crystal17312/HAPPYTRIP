@@ -11,9 +11,9 @@ import lombok.Setter;
 @Setter
 public class AirForm {
 
-    @NotBlank
+
     private String roundWay;
-    @NotBlank
+
     private String oneWay;
     @NotBlank
     private String departure;
@@ -21,7 +21,7 @@ public class AirForm {
     private String arrival;
     @NotBlank
     private String departureDate1;
-    @NotBlank
+
     private String departureDate2;
     @NotNull
     private int passenger;

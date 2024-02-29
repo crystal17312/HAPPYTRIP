@@ -2,40 +2,60 @@ package com.HAPPYTRIP.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class AirlineDto {
     private Response response;
 
+
     @Data
     @AllArgsConstructor
-    class Response {
+    @NoArgsConstructor
+    public static class Response {
         private Header header;
         private Body body;
+
+
+
+
     }
 
     @Data
     @AllArgsConstructor
-    class Header {
+    @NoArgsConstructor
+    public static class Header {
         private String resultCode;
         private String resultMsg;
     }
 
+
     @Data
     @AllArgsConstructor
-    class Body {
+    @NoArgsConstructor
+    public static class Body {
         private Items items;
         private int numOfRows;
         private int pageNo;
         private int totalCount;
 
+
+
         @Data
         @AllArgsConstructor
-        class Items {
+        @NoArgsConstructor
+        public static class Items {
             private List<Airline> item;
+
+
+
         }
     }
+
+
 
 }

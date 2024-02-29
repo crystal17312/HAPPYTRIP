@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>항공권 조회 결과</title>
+
+    <!--  CSS-->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!--  JS-->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <style>
+        th, td {
+            text-align: left;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">항공권 조회 결과</h1>
+    <form action="#" method="POST">
+        <table class="table table-bordered mt-4">
+            <thead class="thead-light">
+            <tr>
+                <th>편명</th>
+                <th>운항시간</th>
+                <th>항공사</th>
+                <th>가격</th>
+                <th>선택</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${itemList}">
+                <td th:text="${item.airlineNm}"></td>
+                <td th:text="${item.arrAirportNm}"></td>
+                <td th:text="${item.arrPlandTime}"></td>
+                <td th:text="${item.depAirportNm}"></td>
+                <td th:text="${item.depPlandTime}"></td>
+                <td th:text="${item.economyCharge}"></td>
+                <td th:text="${item.prestigeCharge}"></td>
+                <td th:text="${item.vihicleId}"></td>
+                <td><input type="radio" name="flight" value="XYZ456"></td>
+            </tr>
+
+            <!-- 추가적인 항공권 정보를 동적으로 추가할 수 있습니다. -->
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">예약하기</button>
+    </form>
+</div>
+</body>
+</html>

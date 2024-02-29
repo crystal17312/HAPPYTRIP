@@ -1,12 +1,15 @@
 package com.HAPPYTRIP.domain;
 
 import jakarta.persistence.*;
+import lombok.Generated;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 public class Flight {
 
     @Id
@@ -25,4 +28,6 @@ public class Flight {
     private LocalDateTime arrivalDate;
 
     private String airlineName;
+
+    private int price;
 }

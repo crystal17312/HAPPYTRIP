@@ -1,15 +1,12 @@
 <!Doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8"/>
   <title>홈</title>
 
-<!--  CSS-->
+  <!--  CSS-->
   <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-
-<!--  JS-->
-  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.min.css">
@@ -23,15 +20,15 @@
         <div class="tab-pane active" id="tab1">
           <div class="tab_wrap">
 
-            <form action="/booking/list" method="GET"  id="frm">
+            <form th:action="@{/home}" method="post" th:object="${airForm}">
               <!-- 가는편/오는편 radioButton -->
               <div class="d-flex py-2">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="roundTrip" value="왕복 가는편" id="round" checked>
+                  <input class="form-check-input" type="radio" name="roundWay" value="왕복" id="roundWay" checked th:field="*{roundWay}">
                   <label class="form-check-label"> 왕복</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="roundTrip" value="편도" id="eachWay">
+                  <input class="form-check-input" type="radio" name="oneWay" value="편도" id="oneWay" th:field="*{oneWay}">
                   <label class="form-check-label"> 편도</label>
                 </div>
               </div>
@@ -41,38 +38,38 @@
                 <div class="container d-flex justify-content-between">
                   <div class="start_departure">
                     <div class="form-floating">
-                      <select class="form-select" name="departure" id="floatingSelectGrid" aria-label="Floating label select example">
-                        <option selected>출발지</option>
+                      <select class="form-select" name="departure" id="departure" aria-label="Floating label select example" th:field="*{departure}">
+                        <option value="출발지" selected>출발지</option>
                         <option value="김포">김포</option>
                         <option value="제주">제주</option>
                         <option value="울산">울산</option>
                         <option value="부산">부산</option>
                         <option value="여수">여수</option>
                       </select>
-                      <label for="floatingSelectGrid">출발지</label>
+                      <label for="departure">출발지</label>
                     </div>
                   </div>
 
                   <div class="end_departure">
                     <div class="form-floating">
-                      <select class="form-select" name="destination" id="floatingSelectGrid" aria-label="Floating label select example">
-                        <option selected>도착지</option>
+                      <select class="form-select" name="arrival" id="arrival" aria-label="Floating label select example" th:field="*{arrival}">
+                        <option value="도착지" selected>도착지</option>
                         <option value="김포">김포</option>
                         <option value="제주">제주</option>
                         <option value="울산">울산</option>
                         <option value="부산">부산</option>
                         <option value="여수">여수</option>
                       </select>
-                      <label for="floatingSelectGrid">도착지</label>
+                      <label for="arrival">도착지</label>
                     </div>
                   </div>
 
                   <!-- 여정 : 달력 -->
                   <div class="calander">
                     <div class="form-floating">
-                      <input class="form-control" type="text" name="departureDate" placeholder="yyyy/mm/dd" id="input-start" >
-                      <input class="form-control d-none" type="text" name="departureDate" placeholder="yyyy/mm/dd" id="input-day" disabled>
-                      <label for="floatingSelectGrid">여정</label>
+                      <input class="form-control" type="text" name="departureDate1" placeholder="yyyy/mm/dd" id="input-start" th:field="*{departureDate1}">
+                      <input class="form-control d-none" type="text" name="departureDate2" placeholder="yyyy/mm/dd" id="input-day" disabled th:field="*{departureDate2}">
+                      <label for="input-start">여정</label>
                     </div>
                   </div>
 
@@ -80,52 +77,55 @@
                   <div class="passenger">
                     <div class="start_departure">
                       <div class="form-floating">
-                        <select class="form-select" name="passenger" id="passenger" aria-label="Floating label select example">
-                          <option selected>탑승객</option>
+                        <select class="form-select" name="passenger" id="passenger" aria-label="Floating label select example" th:field="*{passenger}">
+                          <option value="1" selected>탑승객</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
                           <option value="3">3</option>
                           <option value="4">4</option>
                           <option value="5">5</option>
                         </select>
-                        <label for="floatingSelectGrid">탑승객</label>
+                        <label for="passenger">탑승객</label>
                       </div>
                     </div>
                   </div>
-                  <script>
-                    $(document).ready(function() {
-                      $('#icon_click').on('click', function() {
-                        // alert('a')
-                        $('.number_box').show();
-                      });
-
-                      $('.down').click(function(e) {
-                        e.preventDefault();
-                        var input = $('#adult');
-                        if(input.val() < input.attr('max')) {
-                          input.val(parseInt(input.val()) - 1);
-                        }
-                        if(input.val() <= 1) {
-                          input.val(1);
-                        }
-                      })
-                      $('.up').click(function(e) {
-                        e.preventDefault();
-                        var input = $('#adult');
-                        if(input.val() >= input.attr('min')) {
-                          input.val(parseInt(input.val()) + 1);
-                        }
-                        if(input.val() <= 1) {
-                          input.val(1);
-                        }
-                      })
-                    })
-                  </script>
-                  <!-- 검색 버튼 -->
-                  <div class="search_btn pt-2">
-                    <button id="booking_btn" type="submit" class="btn btn-primary">검색</button>
-                  </div>
                 </div>
+              </div>
+
+
+              <script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+              <script>
+                $(document).ready(function() {
+                  $('#icon_click').on('click', function() {
+                    // alert('a')
+                    $('.number_box').show();
+                  });
+
+                  $('.down').click(function(e) {
+                    e.preventDefault();
+                    var input = $('#adult');
+                    if(input.val() < input.attr('max')) {
+                      input.val(parseInt(input.val()) - 1);
+                    }
+                    if(input.val() <= 1) {
+                      input.val(1);
+                    }
+                  })
+                  $('.up').click(function(e) {
+                    e.preventDefault();
+                    var input = $('#adult');
+                    if(input.val() >= input.attr('min')) {
+                      input.val(parseInt(input.val()) + 1);
+                    }
+                    if(input.val() <= 1) {
+                      input.val(1);
+                    }
+                  })
+                })
+              </script>
+              <!-- 검색 버튼 -->
+              <div class="search_btn pt-2">
+                <button type="submit" class="btn btn-primary">검색</button>
               </div>
             </form>
 
@@ -133,11 +133,10 @@
         </div>
       </div>
     </div>
-</section>
+  </section>
 </div>
 <footer th:replace="~{footer :: footerFragment}"></footer>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
@@ -258,6 +257,8 @@
       $('#input-day').attr('disabled', 'disabled')
     }
   });
+
+
 
 </script>
 </body>

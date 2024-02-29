@@ -1,10 +1,10 @@
 package com.HAPPYTRIP.api;
 
-public class Data {
+public class Airline {
     private String airlineNm;
     private String arrAirportNm;
     private String arrPlandTime;
-    private int economyCharge;
-    private int prestigeCharge;
+    private Integer economyCharge;
+    private Integer prestigeCharge;
     private String vihicleId;
 }

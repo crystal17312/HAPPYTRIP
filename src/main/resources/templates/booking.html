@@ -27,26 +27,61 @@
         <table class="table table-bordered mt-4">
             <thead class="thead-light">
             <tr>
-                <th>편명</th>
-                <th>운항시간</th>
                 <th>항공사</th>
-                <th>가격</th>
-                <th>선택</th>
+                <th>출발지</th>
+                <th>도착지</th>
+                <th>출발시간</th>
+                <th>도착시간</th>
+                <th>소요시간</th>
+                <th>이코노미가격</th>
+                <th>프레스티지가격</th>
+                <th>항공편명</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${itemList}">
+            <tr th:each="item : ${itemList1}">
                 <td th:text="${item.airlineNm}"></td>
-                <td th:text="${item.arrAirportNm}"></td>
-                <td th:text="${item.arrPlandTime}"></td>
                 <td th:text="${item.depAirportNm}"></td>
+                <td th:text="${item.arrAirportNm}"></td>
                 <td th:text="${item.depPlandTime}"></td>
+                <td th:text="${item.arrPlandTime}"></td>
+                <td th:text="${item.duration}"></td>
                 <td th:text="${item.economyCharge}"></td>
                 <td th:text="${item.prestigeCharge}"></td>
                 <td th:text="${item.vihicleId}"></td>
                 <td><input type="radio" name="flight" value="XYZ456"></td>
             </tr>
+            </tbody>
+        </table>
 
+        <table th:if="${tripType == '왕복'}" class="table table-bordered mt-4">
+            <thead class="thead-light">
+                <tr>
+                    <th>항공사</th>
+                    <th>출발지</th>
+                    <th>도착지</th>
+                    <th>출발시간</th>
+                    <th>도착시간</th>
+                    <th>소요시간</th>
+                    <th>이코노미가격</th>
+                    <th>프레스티지가격</th>
+                    <th>항공편명</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${itemList2}">
+                    <td th:text="${item.airlineNm}"></td>
+                    <td th:text="${item.depAirportNm}"></td>
+                    <td th:text="${item.arrAirportNm}"></td>
+                    <td th:text="${item.depPlandTime}"></td>
+                    <td th:text="${item.arrPlandTime}"></td>
+                    <td th:text="${item.duration}"></td>
+                    <td th:text="${item.economyCharge}"></td>
+                    <td th:text="${item.prestigeCharge}"></td>
+                    <td th:text="${item.vihicleId}"></td>
+                    <td><input type="radio" name="flight" value="XYZ456"></td>
+                </tr>
             <!-- 추가적인 항공권 정보를 동적으로 추가할 수 있습니다. -->
             </tbody>
         </table>

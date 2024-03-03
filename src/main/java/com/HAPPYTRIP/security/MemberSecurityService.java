@@ -22,6 +22,7 @@ public class MemberSecurityService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final AdminRepository adminRepository;
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Admin> adminOptional = adminRepository.findByAdmin(username);

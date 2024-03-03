@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>항공권 조회</title>
+
+    <!--  CSS-->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!--  JS-->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <style>
+        th, td {
+            text-align: left;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
+<div class="container">
+    <h1 class="text-center mt-5">항공권 조회</h1>
+    <form action="#" method="POST">
+        <table class="table table-bordered mt-4">
+            <thead class="thead-light">
+            <tr>
+                <th>편명</th>
+                <th>운항시간</th>
+                <th>항공사</th>
+                <th>가격</th>
+                <th>선택</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>ABC123</td>
+                <td>2024-03-15 10:00 - 2024-03-15 13:00</td>
+                <td>대한항공</td>
+                <td>100,000원</td>
+                <td><input type="radio" name="flight" value="ABC123"></td>
+            </tr>
+            <tr>
+                <td>XYZ456</td>
+                <td>2024-03-20 14:00 - 2024-03-20 17:00</td>
+                <td>아시아나항공</td>
+                <td>120,000원</td>
+                <td><input type="radio" name="flight" value="XYZ456"></td>
+            </tr>
+            <!-- 추가적인 항공권 정보를 동적으로 추가할 수 있습니다. -->
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">예약하기</button>
+    </form>
+</div>
+<footer th:replace="~{footer :: footerFragment}"></footer>
+</body>
+</html>

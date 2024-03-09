@@ -29,5 +29,8 @@ public class Airline {
     @JsonProperty("vihicleId")
     private String vihicleId;
 
+    private String duration;
+
+
     // getter 및 setter 메서드
 }

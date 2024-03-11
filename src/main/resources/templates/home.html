@@ -4,7 +4,15 @@
   <meta charset="UTF-8">
   <title>Home Page</title>
 </head>
+
+<!--  CSS-->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+<!--JS-->
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
 <body>
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
 <h1>Welcome to Happy Trip!</h1>
 <form th:action="@{/home}" th:object="${airForm}" method="post">
   <label for="roundWay">Round Way:</label>

@@ -19,11 +19,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final MemberRepository memberRepository;
-
-
-
-
-
+    
     @Transactional
     //회원생성
     public Member create(String userId, String password, String name, String phone, String birthday) {
@@ -56,7 +52,13 @@ public class MemberService {
             return memberRepository.save(persistence);
         }
 
-    public Optional<Member> findByUserId(String userId) {
+        @Transactional
+        public Optional<Member> findByUserId(String userId) {
         return memberRepository.findByUserId(userId);
+    }
+
+    @Transactional
+    public void deleteByUserId(String userId) {
+        memberRepository.deleteByUserId(userId);
     }
 }

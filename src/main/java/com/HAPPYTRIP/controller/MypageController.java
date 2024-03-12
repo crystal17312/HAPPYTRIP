@@ -19,7 +19,6 @@ import java.util.Optional;
 public class MypageController {
 
     private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
 
     //마이페이지
     @GetMapping("")
@@ -37,6 +36,7 @@ public class MypageController {
         return "/updateForm";
     }
 
+    //회원정보 수정
     @PostMapping("/update")
     public String updatePassword(@RequestParam("name") String name,
                                  @RequestParam("phone") String phone,
@@ -55,14 +55,25 @@ public class MypageController {
         return "/mypage";
     }
 
+    //회원 탈퇴
+    @GetMapping("/deleteCheck")
+    public String deleteCheck() {
+        return "/deleteCheck";
+    }
     @PostMapping("/delete")
-    public String deleteMember() {
+    public String deleteMember(String password, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
 
-        memberService.deleteByUserId(userId);
-        SecurityContextHolder.clearContext();
-
-        return "redirect:/member/logout";
+        // 비밀번호 확인
+        if (memberService.deleteCheck(userId, password)) {
+            // 비밀번호가 일치하는 경우 회원 삭제
+            memberService.deleteByUserId(userId);
+            return "redirect:/member/logout";
+        } else {
+            // 비밀번호가 일치하지 않는 경우 에러 플래그 설정
+            model.addAttribute("error", true);
+            return "/deleteCheck";
+        }
     }
 }

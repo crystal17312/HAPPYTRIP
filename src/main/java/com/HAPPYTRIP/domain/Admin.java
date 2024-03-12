@@ -8,6 +8,7 @@ import lombok.Getter;
 public class Admin {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Admin_id")
     private Long id;
 

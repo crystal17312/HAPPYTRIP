@@ -3,7 +3,8 @@ package com.HAPPYTRIP.service;
 import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,6 @@ public class MemberService {
 
 
     private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authenticationManager;
     private final MemberRepository memberRepository;
     
     @Transactional
@@ -33,6 +33,7 @@ public class MemberService {
         return member;
     }
 
+    //회원정보 수정
         @Transactional
         public Member update(Member member) {
             Member persistence = memberRepository.findByUserId(member.getUserId())
@@ -57,8 +58,21 @@ public class MemberService {
         return memberRepository.findByUserId(userId);
     }
 
+    //회원탈퇴
     @Transactional
     public void deleteByUserId(String userId) {
         memberRepository.deleteByUserId(userId);
     }
+
+    @Transactional
+    public boolean deleteCheck(String userId, String password) {
+        Optional<Member> optionalMember = memberRepository.findByUserId(userId);
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            return passwordEncoder.matches(password, member.getPassword());
+        } else {
+            return false;
+        }
+    }
+
 }

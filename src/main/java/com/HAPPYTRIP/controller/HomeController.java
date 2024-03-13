@@ -31,6 +31,10 @@ public class HomeController {
         return "home";
     }
 
+
+
+
+
     @PostMapping("/home")
     public String searchFlights(@Valid AirForm airForm, BindingResult bindingResult, Model model) {
 
@@ -194,7 +198,7 @@ public class HomeController {
                         Date arTime = format.parse(arrivalTime.substring(8,12));
                         long diff = arTime.getTime() - dpaTime.getTime();
                         if (diff < 0) {
-                            diff += 24 * 60 * 60 * 1000; // 24시간을 더해줌
+                            diff += 24 * 60 * 60 * 1000;
                         }
                         long diffMinutes = diff / (60 * 1000);
                         long hours = diffMinutes / 60;

@@ -10,6 +10,7 @@
 
     <!--  JS-->
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
         th, td {
@@ -23,7 +24,7 @@
 <body>
 <div class="container">
     <h1 class="mt-5">항공권 조회 결과</h1>
-    <form id="flightForm" action="#" method="POST">
+    <form id="flightForm" action="/booking/submitFlights" method="POST">
         <table class="table table-bordered mt-4">
             <thead class="thead-light">
             <tr>
@@ -47,14 +48,23 @@
                 <td th:text="${item.duration}"></td>
                 <td th:text="${item.economyCharge}"></td>
                 <td th:text="${item.vihicleId}"></td>
-                <td><input type="radio" name="flight1" value="[[${itemList1.index}]]" required></td>
+                <td><input type="radio" name="flight1" value="[[${itemList1.index}]]"
+                           th:attr="data-airline=${item.airlineNm},
+                        data-departure=${item.depAirportNm},
+                        data-arrival=${item.arrAirportNm},
+                        data-departure-time=${item.depPlandTime},
+                        data-arrival-time=${item.arrPlandTime},
+                        data-duration=${item.duration},
+                        data-price=${item.economyCharge},
+                        data-flight-number=${item.vihicleId}"
+                           ></td>
             </tr>
             </tbody>
         </table>
     </form>
 </div>
 <div class="container">
-    <form  id="returnFlightForm" action="#" method="POST">
+    <form  id="returnFlightForm" action="/booking/submitFlights" method="POST">
         <table th:if="${tripType == '왕복'}" class="table table-bordered mt-4">
             <thead class="thead-light">
                 <tr>
@@ -79,73 +89,104 @@
                     <td th:text="${item.duration}"></td>
                     <td th:text="${item.economyCharge}"></td>
                     <td th:text="${item.vihicleId}"></td>
-                    <td><input type="radio" name="flight2" value="[[${itemList2.index}]]"  ></td>
+                    <td><input type="radio" name="flight2" value="[[${itemList2.index}]]"
+                               th:attr="data-airline=${item.airlineNm},
+                        data-departure=${item.depAirportNm},
+                        data-arrival=${item.arrAirportNm},
+                        data-departure-time=${item.depPlandTime},
+                        data-arrival-time=${item.arrPlandTime},
+                        data-duration=${item.duration},
+                        data-price=${item.economyCharge},
+                        data-flight-number=${item.vihicleId}"></td>
                 </tr>
             <!-- 추가적인 항공권 정보를 동적으로 추가할 수 있습니다. -->
             </tbody>
         </table>
     </form>
 </div>
-    <button type="submit" class="btn btn-primary" onclick="check()">예약하기</button>
+    <button type="submit" class="btn btn-primary" onclick="SelectedSubmit()">예약하기</button>
+
+    <!-- 숨겨진 필드(hidden field)로 선택된 항공편 정보를 전달할 준비 -->
+<input type="hidden" id="selectedFlights1" name="selectedFlights1">
+<input type="hidden" id="selectedFlights2" name="selectedFlights2">
 
 <script>
-    function check() {
-        var flightForm = document.getElementById('flightForm');
-        var returnFlightForm = document.getElementById('returnFlightForm');
-        var flightChecked = false;
-        var returnFlightChecked = false;
 
-        // 편도일 때 선택된 항공편 체크 확인
-        if (!returnFlightForm) {
-            var flightRadios = flightForm.elements['flight1'];
-            for (var i = 0; i < flightRadios.length; i++) {
-                if (flightRadios[i].checked) {
-                    flightChecked = true;
-                    break;
-                }
+    function SelectedSubmit(){
+
+
+
+        var selectedFlights1 =[];
+        var selectedFlights2 =[];
+
+        var flightRadios=document.getElementsByName('flight1');
+        var returnFlightRadios=document.getElementsByName('flight2');
+
+
+        for(var i=0; i<flightRadios.length; i++){
+            if(flightRadios[i].checked){
+                selectedFlights1.push({
+                    airline: flightRadios[i].getAttribute('data-airline'),
+                    departure: flightRadios[i].getAttribute('data-departure'),
+                    arrival: flightRadios[i].getAttribute('data-arrival'),
+                    departureTime: flightRadios[i].getAttribute('data-departure-time'),
+                    arrivalTime: flightRadios[i].getAttribute('data-arrival-time'),
+                    duration: flightRadios[i].getAttribute('data-duration'),
+                    price: flightRadios[i].getAttribute('data-price'),
+                    flightNumber: flightRadios[i].getAttribute('data-flight-number')
+                });
+                break;
             }
-            if (flightChecked) {
-                flightForm.submit();
-            } else {
-                alert("편도 항공편을 선택해주세요.");
+        }
+
+        for (var i = 0; i < returnFlightRadios.length; i++) {
+            if (returnFlightRadios[i].checked) {
+                selectedFlights2.push({
+                    airline: returnFlightRadios[i].getAttribute('data-airline'),
+                    departure: returnFlightRadios[i].getAttribute('data-departure'),
+                    arrival: returnFlightRadios[i].getAttribute('data-arrival'),
+                    departureTime: returnFlightRadios[i].getAttribute('data-departure-time'),
+                    arrivalTime: returnFlightRadios[i].getAttribute('data-arrival-time'),
+                    duration: returnFlightRadios[i].getAttribute('data-duration'),
+                    price: returnFlightRadios[i].getAttribute('data-price'),
+                    flightNumber: returnFlightRadios[i].getAttribute('data-flight-number')
+                });
+                break;
             }
         }
 
 
-        else { // 왕복일 때 선택된 항공편 및 왕복 항공편 체크 확인
-            var flightRadios = flightForm.elements['flight1'];
-            var returnFlightRadios = returnFlightForm.elements['flight2'];
-            for (var i = 0; i < flightRadios.length; i++) {
-                if (flightRadios[i].checked) {
-                    flightChecked = true;
-                    break;
-                }
+        console.log("Selected Flights 1: ", selectedFlights1);
+        console.log("Selected Flights 2: ", selectedFlights2);
+
+
+
+        console.log(JSON.stringify(selectedFlights1));
+
+        // 선택한 항공편 데이터를 JSON 문자열로 변환하여 hidden input에 설정
+        //  document.getElementById('selectedFlights1').value = JSON.stringify(selectedFlights1);
+        //  document.getElementById('selectedFlights2').value = JSON.stringify(selectedFlights2);
+
+
+
+
+        $.ajax({
+            url: "/booking/submitFlights",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                selectedFlights1: selectedFlights1,
+                selectedFlights2: selectedFlights2
+            }),
+            success: function(response) {
+                // 서버로부터의 응답 처리
+                console.log("서버 응답: ", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Ajax 요청 실패: ", error);
             }
-            for (var i = 0; i < returnFlightRadios.length; i++) {
-                if (returnFlightRadios[i].checked) {
-                    returnFlightChecked = true;
-                    break;
-                }
-            }
-        }
+        });
 
-        // // 편도일 때 예약 처리
-        // if (!returnFlightForm && flightForm) {
-        //     if(flightChecked) {
-        //         flightForm.submit();
-        //     }else if (!returnFlightForm && !flightChecked) {
-        //         alert("편도 항공편을 선택해주세요.");
-        //     }
-        // }
-
-
-        // 왕복일 때 예약 처리
-        if (returnFlightForm && flightChecked && returnFlightChecked) {
-            flightForm.submit();
-            returnFlightForm.submit();
-        } else if (returnFlightForm && (!flightChecked || !returnFlightChecked)) {
-            alert("왕복 항공편을 선택해주세요.");
-        }
     }
 </script>
 

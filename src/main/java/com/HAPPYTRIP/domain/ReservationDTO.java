@@ -1,2 +1,16 @@
-package com.HAPPYTRIP.domain;public class ReservationDTO {
+package com.HAPPYTRIP.domain;
+
+import lombok.Data;
+
+@Data
+public class ReservationDTO {
+
+    private String airline;
+    private String departure;
+    private String arrival;
+    private String departureTime;
+    private String arrivalTime;
+    private String duration;
+    private String price;
+    private String flightNumber;
 }

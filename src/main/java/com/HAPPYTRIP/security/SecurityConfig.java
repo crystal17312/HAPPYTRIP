@@ -22,11 +22,11 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable);
-
-        http
-                .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
+            .csrf(AbstractHttpConfigurer::disable)
+                .authorizeRequests(au -> au
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/**").permitAll()
+                        .anyRequest().authenticated())
                 .headers((headers) -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))

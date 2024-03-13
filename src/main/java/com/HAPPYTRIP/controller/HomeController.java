@@ -8,7 +8,6 @@ import com.HAPPYTRIP.domain.AirForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +31,6 @@ public class HomeController {
         return "home";
     }
 
-    @PreAuthorize("isAuthenticated()")
     @PostMapping("/home")
     public String searchFlights(@Valid AirForm airForm, BindingResult bindingResult, Model model) {
 

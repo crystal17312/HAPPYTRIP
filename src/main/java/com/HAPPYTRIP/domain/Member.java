@@ -24,5 +24,4 @@ public class Member {
 
     private String birthday;
 
-
 }

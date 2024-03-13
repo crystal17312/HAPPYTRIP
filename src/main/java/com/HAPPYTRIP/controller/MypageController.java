@@ -3,6 +3,7 @@ package com.HAPPYTRIP.controller;
 import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
+@PreAuthorize("isAuthenticated()")
 public class MypageController {
 
     private final MemberService memberService;

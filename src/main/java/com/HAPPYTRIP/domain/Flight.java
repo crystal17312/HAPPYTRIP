@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class Flight {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Flight_id")
     private Long id;
 

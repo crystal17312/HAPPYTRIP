@@ -11,12 +11,13 @@ import java.time.LocalDateTime;
 public class Notice {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Notice_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private Admin adminId;
+    @JoinColumn(name = "member_id")
+    private Member memberId;
 
     private String title;
 

@@ -1,6 +1,7 @@
 package com.HAPPYTRIP.controller;
 
 import com.HAPPYTRIP.domain.MemberForm;
+import com.HAPPYTRIP.domain.UserRole;
 import com.HAPPYTRIP.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class MemberController {
 
         try {
             System.out.println(memberForm.getId());
-            memberService.create(memberForm.getId(), memberForm.getPassword(), memberForm.getName(),memberForm.getPhone(), memberForm.getBirthday());
+            memberService.create(memberForm.getId(), memberForm.getPassword(), memberForm.getName(),memberForm.getPhone(), memberForm.getBirthday(), UserRole.USER);
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("joinFailed", "이미 등록된 사용자입니다.");

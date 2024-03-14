@@ -10,6 +10,7 @@ import lombok.Setter;
 public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
@@ -23,5 +24,8 @@ public class Member {
 
     private String birthday;
 
+    //권한
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
 }

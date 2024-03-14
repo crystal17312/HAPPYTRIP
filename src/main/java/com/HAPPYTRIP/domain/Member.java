@@ -24,5 +24,8 @@ public class Member {
 
     private String birthday;
 
+    //권한
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
 }

@@ -24,12 +24,7 @@ public class SecurityConfig {
 
             http
                     .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                            .requestMatchers(new AntPathRequestMatcher("/**")).permitAll().requestMatchers(
-                                    "/admin/**"
-                            )
-                            .hasRole("ADMIN")
-                            .anyRequest()
-                            .permitAll())
+                            .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
                     .headers((headers) -> headers
                             .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                     XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))

@@ -17,9 +17,9 @@
                 <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">공지사항</a></li>
                 <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Q&A</a></li>
                 <!-- 사용자가 로그인한 경우에만 관리자 항목을 표시합니다. -->
-                <sec:authorize access="isAuthenticated() and hasRole('ADMIN')">
-                    <li class="nav-item"><a href="/admin/main" class="nav-link link-body-emphasis px-2">관리자</a></li>
-                </sec:authorize>
+
+                    <li class="nav-item"><a href="/admin/main" class="nav-link link-body-emphasis px-2" sec:authorize access=hasRole('ADMIN')>관리자</a></li>
+
             </ul>
             <ul class="nav">
                 <li class="nav-item">

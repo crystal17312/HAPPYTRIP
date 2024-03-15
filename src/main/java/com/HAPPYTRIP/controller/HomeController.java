@@ -4,10 +4,11 @@ package com.HAPPYTRIP.controller;
 import com.HAPPYTRIP.api.Airline;
 import com.HAPPYTRIP.api.AirlineApi;
 import com.HAPPYTRIP.api.AirlineDto;
-import com.HAPPYTRIP.domain.AirForm;
+import com.HAPPYTRIP.dto.AirForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,7 +35,7 @@ public class HomeController {
 
 
 
-
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/home")
     public String searchFlights(@Valid AirForm airForm, BindingResult bindingResult, Model model) {
 

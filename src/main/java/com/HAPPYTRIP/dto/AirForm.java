@@ -1,4 +1,4 @@
-package com.HAPPYTRIP.domain;
+package com.HAPPYTRIP.dto;
 
 
 import jakarta.validation.constraints.NotBlank;

@@ -1,6 +1,6 @@
 package com.HAPPYTRIP.controller;
 
-import com.HAPPYTRIP.domain.MemberForm;
+import com.HAPPYTRIP.dto.MemberForm;
 import com.HAPPYTRIP.domain.UserRole;
 import com.HAPPYTRIP.service.MemberService;
 import jakarta.validation.Valid;

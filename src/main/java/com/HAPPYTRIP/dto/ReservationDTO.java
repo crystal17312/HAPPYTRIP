@@ -1,4 +1,4 @@
-package com.HAPPYTRIP.domain;
+package com.HAPPYTRIP.dto;
 
 import lombok.Data;
 

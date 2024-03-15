@@ -2,14 +2,14 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home Page</title>
+    <title>관리자 페이지</title>
+
+    <!--  CSS-->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!--JS-->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
-
-<!--  CSS-->
-<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-
-<!--JS-->
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 
 <body>
 <nav th:replace="~{navbar :: navbarFragment}"></nav>

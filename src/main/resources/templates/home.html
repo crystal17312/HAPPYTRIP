@@ -14,7 +14,7 @@
 <body>
 <nav th:replace="~{navbar :: navbarFragment}"></nav>
 <h1>Welcome to Happy Trip!</h1>
-<form th:action="@{/home}" th:object="${airForm}" method="post">
+<form th:action="@{/booking}" th:object="${airForm}" method="post">
   <label for="roundWay">Round Way:</label>
   <input type="text" id="roundWay" th:field="*{roundWay}"><br>
 

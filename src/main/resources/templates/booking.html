@@ -178,7 +178,11 @@
             }),
             success: function(response) {
                 // 서버로부터의 응답 처리
-                console.log("서버 응답: ", response);
+
+                    window.location.href = "/booking/pay"; // 이동할 페이지 URL에 맞게 변경해야 함
+
+
+
             },
             error: function(xhr, status, error) {
                 console.error("Ajax 요청 실패: ", error);

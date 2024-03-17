@@ -15,9 +15,9 @@ public class Notice {
     @Column(name = "Notice_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member memberId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_name")
+    private Member author;
 
     private String title;
 

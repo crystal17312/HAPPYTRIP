@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>게시판</title>
+
+    <!--CSS-->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/join.css}" rel="stylesheet" />
+
+    <!--JS-->
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body class="container mt-5">
+<h3 th:text="${board.title}" class="mb-3"></h3>
+<div th:text="${board.content}" class="mb-3"></div>
+<div>
+    <ul class="list-group">
+        <li class="list-group-item" th:each="comment : ${board.commentList}" th:text="${comment.content}"></li>
+    </ul>
+</div>
+
+<form th:action="@{|/comment/create/${board.id}|}" method="post">
+    <textarea class="form-control mb-3" name="content" id="content" rows="15"></textarea>
+    <input class="btn btn-secondary" type="submit" value="답변등록">
+</form>
+</body>
+</html>

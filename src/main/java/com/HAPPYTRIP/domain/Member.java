@@ -27,5 +27,4 @@ public class Member {
     //권한
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
 }

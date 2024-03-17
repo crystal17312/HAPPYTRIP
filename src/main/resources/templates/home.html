@@ -13,6 +13,7 @@
 
 <body>
 <nav th:replace="~{navbar :: navbarFragment}"></nav>
+<div class="container">
 <h1>Welcome to Happy Trip!</h1>
 <form th:action="@{/home}" th:object="${airForm}" method="post">
   <label for="roundWay">Round Way:</label>
@@ -38,5 +39,6 @@
 
   <button type="submit">Search Flights</button>
 </form>
+</div>
 </body>
 </html>

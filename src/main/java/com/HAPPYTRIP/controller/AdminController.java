@@ -21,22 +21,22 @@ public class AdminController {
     public String adminMembers(Model model) {
         List<Member> memberList = this.memberRepository.findAll();
         model.addAttribute("memberList", memberList);
-        return "adminMembers";
+        return "/admin/adminMembers";
     }
 
     @GetMapping("/booking")
     public String adminBooking() {
-        return "adminBooking";
+        return "/admin/adminBooking";
     }
 
     @GetMapping("/notice")
     public String adminNotice() {
-        return "adminNotice";
+        return "/admin/adminNotice";
     }
 
     @GetMapping("/board")
     public String adminBoard() {
-        return "adminBoard";
+        return "/admin/adminBoard";
     }
 
 }

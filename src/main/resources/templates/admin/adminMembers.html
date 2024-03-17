@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>관리자 페이지</title>
@@ -38,7 +38,7 @@
     </style>
 </head>
 <body>
-<nav th:replace="~{adminNavbar :: navbarFragment}"></nav>
+<nav th:replace="~{/admin/adminNavbar :: navbarFragment}"></nav>
 <div class="container">
     <h1>회원 관리</h1>
     <div class="table-container">

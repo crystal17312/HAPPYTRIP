@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -17,7 +18,6 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardservice;
-    private final MemberService memberService;
 
     @GetMapping("/list")
     public String list(Model model) {
@@ -25,6 +25,7 @@ public class BoardController {
         model.addAttribute("boardList", boardList);
         return "boardList";
     }
+
 
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Long id) {
@@ -38,10 +39,12 @@ public class BoardController {
     public String boardCreate() {
         return "boardForm";
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
-    public String boardCreate(@RequestParam(value = "title") String title, @RequestParam(value = "content") String content) {
-        this.boardservice.create(title, content);
+    public String boardCreate(@RequestParam(value = "title") String title, @RequestParam(value = "content") String content, Principal principal) {
+        String username = principal.getName();
+        boardservice.create(title, content, username);
         return "redirect:/board/list";
     }
 }

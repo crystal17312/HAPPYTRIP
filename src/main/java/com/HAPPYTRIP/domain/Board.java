@@ -16,9 +16,7 @@ public class Board {
     @Column(name = "Board_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_name")
-    private Member author;
+    private String author;
 
     private String title;
 

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
+
 
 @Controller
 @RequestMapping("/comment")
@@ -23,11 +25,12 @@ public class CommentController {
     private final BoardService boardService;
     private final CommentService commentService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
-    public String createComment(Model model, @PathVariable("id") Long id, @RequestParam(value = "content") String content) {
+    public String createComment(Model model, @PathVariable("id") Long id, @RequestParam(value = "content") String content, Principal principal) {
+        String username = principal.getName();
         Board board = this.boardService.getBoard(id);
-        this.commentService.create(board, content);
+        this.commentService.create(board, content, username);
         return String.format("redirect:/board/detail/%s", id);
     }
 }

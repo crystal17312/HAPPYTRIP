@@ -1,10 +1,8 @@
 package com.HAPPYTRIP.service;
 
 import com.HAPPYTRIP.domain.Board;
-import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -30,11 +28,12 @@ public class BoardService {
         }
     }
 
-    public void create(String title, String content) {
+    public void create(String title, String content, String author) {
         Board b = new Board();
         b.setTitle(title);
         b.setContent(content);
         b.setDate(LocalDateTime.now());
+        b.setAuthor(author);
         this.boardRepository.save(b);
     }
 

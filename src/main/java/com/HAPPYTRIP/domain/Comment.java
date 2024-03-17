@@ -19,6 +19,8 @@ public class Comment {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    private String author;
+
     private String content;
 
     private LocalDateTime date;

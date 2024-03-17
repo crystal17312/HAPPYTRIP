@@ -57,6 +57,11 @@ public class MemberService {
         return memberRepository.findByUserId(userId);
     }
 
+    @Transactional
+    public Member getMember(String name) {
+            return memberRepository.findByName(name);
+    }
+
     //회원탈퇴
     @Transactional
     public void deleteByUserId(String userId) {

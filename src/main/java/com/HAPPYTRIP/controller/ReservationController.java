@@ -275,9 +275,16 @@ public class ReservationController {
         model.addAttribute("selectedFlights1",selectedFlights1);
         model.addAttribute("selectedFlights2",selectedFlights2);
 
+        log.info("selectedFlights1 = {}",selectedFlights1);
+        log.info("selectedFlights2 = {}",selectedFlights2);
+
 
         Flight flight1 = new Flight();
-        Flight flight2 = new Flight();
+
+
+        String username=principal.getName();
+        Optional<Member> optionalMember=memberService.findByUserId(username);
+        Member member=optionalMember.get();
 
         for (ReservationDTO reservationDTO : selectedFlights1) {
 
@@ -293,31 +300,28 @@ public class ReservationController {
         }
 
         flightService.saveFlight(flight1);
+        reservationService.saveReservation(member,flight1, ReservationStatus.COMPLETION);
 
-        for (ReservationDTO reservationDTO : selectedFlights2) {
+        if(!selectedFlights2.isEmpty()){
+            Flight flight2 = new Flight();
 
-            flight2.setFlightNumber(reservationDTO.getFlightNumber());
-            flight2.setDeparture(reservationDTO.getDeparture());
-            flight2.setArrival(reservationDTO.getArrival());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
-            flight2.setDepartureDate(LocalDateTime.parse(reservationDTO.getDepartureTime(),formatter));
-            flight2.setArrivalDate(LocalDateTime.parse(reservationDTO.getArrivalTime(),formatter));
-            flight2.setAirlineName(reservationDTO.getAirline());
-            flight2.setPrice(Integer.parseInt(reservationDTO.getPrice()));
+            for (ReservationDTO reservationDTO : selectedFlights2) {
+
+
+                    flight2.setFlightNumber(reservationDTO.getFlightNumber());
+                    flight2.setDeparture(reservationDTO.getDeparture());
+                    flight2.setArrival(reservationDTO.getArrival());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+                    flight2.setDepartureDate(LocalDateTime.parse(reservationDTO.getDepartureTime(), formatter));
+                    flight2.setArrivalDate(LocalDateTime.parse(reservationDTO.getArrivalTime(), formatter));
+                    flight2.setAirlineName(reservationDTO.getAirline());
+                    flight2.setPrice(Integer.parseInt(reservationDTO.getPrice()));
+                }
+            flightService.saveFlight(flight2);
+            reservationService.saveReservation(member,flight2,ReservationStatus.COMPLETION);
+
 
         }
-        flightService.saveFlight(flight2);
-
-
-        String username=principal.getName();
-        Optional<Member> optionalMember=memberService.findByUserId(username);
-        Member member=optionalMember.get();
-
-
-
-       reservationService.saveReservation(member,flight1, ReservationStatus.COMPLETION);
-       reservationService.saveReservation(member,flight2,ReservationStatus.COMPLETION);
-
 
 
         return "redirect:/home";

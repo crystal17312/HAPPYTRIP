@@ -6,7 +6,7 @@
             <span class="fs-4">HappyTrip</span>
         </a>
         <ul class="nav me-auto">
-            <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">공지사항</a></li>
+            <li class="nav-item"><a th:href="@{/notice/list}" class="nav-link link-body-emphasis px-2">공지</a></li>
             <li class="nav-item"><a th:href="@{/board/list}" class="nav-link link-body-emphasis px-2">게시판</a></li>
             <li class="nav-item"><a th:href="@{/admin/members}" class="nav-link link-body-emphasis px-2" sec:authorize="hasRole('ADMIN')">관리자</a></li>
 

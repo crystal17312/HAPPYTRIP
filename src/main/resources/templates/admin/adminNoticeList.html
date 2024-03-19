@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>관리자ㅈ</title>
+    <meta charset="UTF-8" />
+    <title>관리자</title>
 
-    <!--  CSS-->
+    <!--CSS-->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/join.css}" rel="stylesheet" />
 
     <!--JS-->
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
@@ -31,39 +32,36 @@
         td {
             vertical-align: middle;
         }
-
-        .delete-button {
-            padding-left: 10px;
-        }
     </style>
 </head>
 <body>
 <nav th:replace="~{/admin/adminNavbar :: navbarFragment}"></nav>
 <div class="container">
-    <h1>회원 관리</h1>
+    <h1>공지 관리</h1>
     <div class="table-container">
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>아이디</th>
-                <th>이름</th>
-                <th>전화번호</th>
-                <th>생년월일</th>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성일시</th>
                 <th>삭제</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="member : ${memberList}" th:unless="${member.userId=='admin'}">
-                <td th:text="${member.userId}"></td>
-                <td th:text="${member.name}"></td>
-                <td th:text="${member.phone}"></td>
-                <td th:text="${member.birthday}"></td>
+            <tr th:each="notice, loop : ${noticeList}">
+                <td th:text="${loop.count}"></td>
+                <td>
+                    <a th:href="@{|/admin/notice/detail/${notice.id}|}" th:text="${notice.title}"></a>
+                </td>
+                <td th:text="${#temporals.format(notice.date, 'yyyy-MM-dd HH:mm')}"></td>
                 <td class="delete-button">
                     <button class="btn btn-danger">DELETE</button>
                 </td>
             </tr>
             </tbody>
         </table>
+        <a th:href="@{|/admin/notice/create|}" class="btn btn-secondary">글 작성</a>
     </div>
 </div>
 </body>

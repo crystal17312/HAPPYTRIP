@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
                         .requestMatchers("/booking/**").authenticated()
+                        .requestMatchers("/admin/**")
                         .hasRole("ADMIN")
                         .anyRequest()
                         .permitAll())
@@ -40,8 +41,8 @@ public class SecurityConfig {
                 .logout((logout)->logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                         .logoutSuccessUrl("/home")
-                        .invalidateHttpSession(true));
-                        .exceptionHandling((exceptionHandling) -> exceptionHandling
+                        .invalidateHttpSession(true))
+                .exceptionHandling((exceptionHandling) -> exceptionHandling
                         .accessDeniedPage("/error"));
 
         return http.build();

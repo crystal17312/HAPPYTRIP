@@ -15,10 +15,6 @@ public class Notice {
     @Column(name = "Notice_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member memberId;
-
     private String title;
 
     private String content;

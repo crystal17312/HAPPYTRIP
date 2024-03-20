@@ -9,10 +9,17 @@
 
 <!--JS-->
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+  <style>
+    h1 {
+      padding-top: 30px;
+    }
+  </style>
 </head>
 
 <body>
 <nav th:replace="~{navbar :: navbarFragment}"></nav>
+<div class="container">
 <h1>Welcome to Happy Trip!</h1>
 <form th:action="@{/booking}" th:object="${airForm}" method="post">
   <label for="roundWay">Round Way:</label>
@@ -38,5 +45,6 @@
 
   <button type="submit">Search Flights</button>
 </form>
+</div>
 </body>
 </html>

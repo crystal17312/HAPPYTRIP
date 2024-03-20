@@ -17,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity //모든 요청 URL이 스프링 시큐리티의 제어를 받도록 만드는
 @EnableMethodSecurity(securedEnabled = true)
-public class SecurityConfig{
+public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -26,7 +26,8 @@ public class SecurityConfig{
 
         http
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll().requestMatchers("/admin/**")
+                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+                        .requestMatchers("/booking/**").authenticated()
                         .hasRole("ADMIN")
                         .anyRequest()
                         .permitAll())
@@ -39,8 +40,8 @@ public class SecurityConfig{
                 .logout((logout)->logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                         .logoutSuccessUrl("/home")
-                        .invalidateHttpSession(true))
-                .exceptionHandling((exceptionHandling) -> exceptionHandling
+                        .invalidateHttpSession(true));
+                        .exceptionHandling((exceptionHandling) -> exceptionHandling
                         .accessDeniedPage("/error"));
 
         return http.build();

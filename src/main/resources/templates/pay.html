@@ -1,27 +1,75 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>관리자 페이지</title>
-
-    <!--  CSS-->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-
-    <!--JS-->
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selected Flights</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-<h1>선택한 항공편 정보</h1>
-<div>
-    <h3>항공편 상세 정보</h3>
-<!--    <p>항공사: <span th:text="${selectedFlightData.airlineNm}"></span></p>-->
-<!--    <p>출발지: <span th:text="${selectedFlightData.depAirportNm}"></span></p>-->
-<!--    <p>도착지: <span th:text="${selectedFlightData.arrAirportNm}"></span></p>-->
-<!--    <p>출발 시간: <span th:text="${selectedFlightData.depPlandTime}"></span></p>-->
-<!--    <p>도착 시간: <span th:text="${selectedFlightData.arrPlandTime}"></span></p>-->
-<!--    <p>소요 시간: <span th:text="${selectedFlightData.duration}"></span></p>-->
-<!--    <p>이코노미 가격: <span th:text="${selectedFlightData.economyCharge}"></span></p>-->
-<!--    <p>항공편명: <span th:text="${selectedFlightData.vihicleId}"></span></p>-->
-</div>
+<h2>Selected Flights</h2>
+<form id="paymentForm" th:action="@{/booking/pay}" method="post">
+<table>
+    <thead>
+    <tr>
+        <th>Airline</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Departure Time</th>
+        <th>Arrival Time</th>
+        <th>Duration</th>
+        <th>Price</th>
+        <th>Flight Number</th>
+    </tr>
+    </thead>
+    <tbody id="selectedFlightsTableBody">
+    <tr th:each="flight : ${selectedFlights1}">
+        <td th:text="${flight.airline}"></td>
+        <td th:text="${flight.departure}"></td>
+        <td th:text="${flight.arrival}"></td>
+        <td th:text="${flight.departureTime}"></td>
+        <td th:text="${flight.arrivalTime}"></td>
+        <td th:text="${flight.duration}"></td>
+        <td th:text="${flight.price}"></td>
+        <td th:text="${flight.flightNumber}"></td>
+    </tr>
+    <tr th:each="flight : ${selectedFlights2}">
+        <td th:text="${flight.airline}"></td>
+        <td th:text="${flight.departure}"></td>
+        <td th:text="${flight.arrival}"></td>
+        <td th:text="${flight.departureTime}"></td>
+        <td th:text="${flight.arrivalTime}"></td>
+        <td th:text="${flight.duration}"></td>
+        <td th:text="${flight.price}"></td>
+        <td th:text="${flight.flightNumber}"></td>
+    </tr>
+    </tbody>
+</table>
+<button type="submit" id="paymentButton">결제하기</button>
+</form>
+<script>
+    document.getElementById("paymentButton").addEventListener("click", function() {
+        // 여기에 결제 처리 로직 추가
+
+        // 결제가 완료되었음을 사용자에게 알리는 알림창 표시
+        alert("결제가 완료되었습니다.");
+
+        // 홈페이지로 이동
+        window.location.href = "/home";
+    });
+</script>
 </body>
 </html>

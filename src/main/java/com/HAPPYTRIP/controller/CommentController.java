@@ -28,17 +28,17 @@ public class CommentController {
     //추가
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
-    public String createComment(Model model, @PathVariable("id") Long id, @RequestParam(value = "content") String content, Principal principal) {
+    public String createComment(@PathVariable("id") Long id, @RequestParam(value = "content") String content, Principal principal) {
         String username = principal.getName();
-        Board board = this.boardService.getBoard(id);
-        this.commentService.create(board, content, username);
+        Board board = boardService.getBoard(id);
+        commentService.create(board, content, username);
         return String.format("redirect:/board/detail/%s", id);
     }
 
     //수정
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/update/{id}")
-    public String commentUpdate(Model model, @PathVariable("id") Long id, Principal principal) {
+    public String commentUpdate(@PathVariable("id") Long id, Principal principal) {
         Comment comment = this.commentService.getComment(id);
         if(!comment.getAuthor().equals(principal.getName())) {
             throw new
@@ -56,18 +56,20 @@ public class CommentController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         String username = principal.getName();
-        commentService.update(id,content, username);
+        this.commentService.update(id,content, username);
         return String.format("redirect:/board/detail/%s", id);
     }
 
+
+    //삭제
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String commentDelete(Principal principal, @PathVariable("id") Long id) {
-        Comment comment = this.commentService.getComment(id);
+        Comment comment = commentService.getComment(id);
         if (!comment.getAuthor().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
-        this.commentService.delete(comment);
+        commentService.delete(comment);
         return String.format("redirect:/board/detail/%s", comment.getBoard().getId());
     }
 }

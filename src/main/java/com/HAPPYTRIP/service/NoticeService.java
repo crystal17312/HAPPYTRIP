@@ -16,12 +16,13 @@ public class NoticeService {
 
     private final NoticeRepository noticeRepository;
 
+    //조회
     public List<Notice> getList() {
-        return this.noticeRepository.findAll();
+        return noticeRepository.findAll();
     }
 
     public Notice getNotice(Long id) {
-        Optional<Notice> notice = this.noticeRepository.findById(id);
+        Optional<Notice> notice = noticeRepository.findById(id);
         if (notice.isPresent()) {
             return notice.get();
         } else {
@@ -40,7 +41,7 @@ public class NoticeService {
 
     //수정
     public void update(Long id, String title, String content) {
-        Optional<Notice> optionalNotice = this.noticeRepository.findById(id);
+        Optional<Notice> optionalNotice = noticeRepository.findById(id);
         if (optionalNotice.isPresent()) {
             Notice n = optionalNotice.get();
             n.setTitle(title);
@@ -53,6 +54,10 @@ public class NoticeService {
 
     //삭제
     public void delete(Notice notice) {
-        this.noticeRepository.delete(notice);
+        noticeRepository.delete(notice);
+    }
+
+    public void deleteById(Long id) {
+        noticeRepository.deleteById(id);
     }
 }

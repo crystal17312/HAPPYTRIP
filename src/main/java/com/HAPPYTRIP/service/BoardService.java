@@ -17,11 +17,13 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
+    //조회
     public List<Board> getList() {
-        return this.boardRepository.findAll();
+        return boardRepository.findAll();
     }
+
     public Board getBoard(Long id) {
-        Optional<Board> board = this.boardRepository.findById(id);
+        Optional<Board> board = boardRepository.findById(id);
         if (board.isPresent()) {
             return board.get();
         } else {
@@ -37,18 +39,18 @@ public class BoardService {
         b.setContent(content);
         b.setDate(LocalDateTime.now());
         b.setAuthor(author);
-        this.boardRepository.save(b);
+        boardRepository.save(b);
     }
 
     //수정
     public void update(Long id, String title, String content, String author) {
-        Optional<Board> optionalBoard = this.boardRepository.findById(id);
+        Optional<Board> optionalBoard = boardRepository.findById(id);
         if (optionalBoard.isPresent()) {
             Board b = optionalBoard.get();
             b.setTitle(title);
             b.setContent(content);
             b.setAuthor(author);
-            this.boardRepository.save(b);
+            boardRepository.save(b);
         } else {
             throw new EntityNotFoundException("게시물을 찾을 수 없습니다.");
         }
@@ -56,7 +58,11 @@ public class BoardService {
 
     //삭제
     public void delete(Board board) {
-        this.boardRepository.delete(board);
+        boardRepository.delete(board);
+    }
+
+    public void deleteById(Long id) {
+        boardRepository.deleteById(id);
     }
 
 }

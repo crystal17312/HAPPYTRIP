@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,11 +20,11 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    //회원가입
     @GetMapping("/join")
     public String JoinForm(MemberForm memberForm) {
         return "join";
     }
-
 
     @PostMapping("/join")
     public String join(@Valid MemberForm memberForm, BindingResult bindingResult) {
@@ -57,3 +58,4 @@ public class MemberController {
         return "redirect:/member/login";
     }
 }
+

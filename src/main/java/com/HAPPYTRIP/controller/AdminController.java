@@ -3,8 +3,8 @@ package com.HAPPYTRIP.controller;
 import com.HAPPYTRIP.domain.Board;
 import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.domain.Notice;
-import com.HAPPYTRIP.repository.BoardRepository;
-import com.HAPPYTRIP.repository.MemberRepository;
+import com.HAPPYTRIP.service.BoardService;
+import com.HAPPYTRIP.service.MemberService;
 import com.HAPPYTRIP.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,37 +21,48 @@ import java.util.List;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminController {
 
-    private final MemberRepository memberRepository;
-    private final BoardRepository boardRepository;
+    private final BoardService boardService;
     private final NoticeService noticeService;
+    private final MemberService memberService;
 
+    //회원 관리
     @GetMapping("/members")
     public String adminMembers(Model model) {
-        List<Member> memberList = this.memberRepository.findAll();
+        List<Member> memberList = memberService.getList();
         model.addAttribute("memberList", memberList);
         return "/admin/adminMembers";
     }
 
+    //예약 관리
     @GetMapping("/booking")
     public String adminBooking() {
         return "/admin/adminBooking";
     }
 
+    //게시판 관리
+    @GetMapping("/board")
+    public String adminBoard(Model model) {
+        List<Board> boardList = boardService.getList();
+        model.addAttribute("boardList", boardList);
+        return "/admin/adminBoard";
+    }
+
+    //공지 관리
     @GetMapping("/notice/list")
     public String list(Model model) {
-        List<Notice> noticeList = this.noticeService.getList();
+        List<Notice> noticeList = noticeService.getList();
         model.addAttribute("noticeList", noticeList);
         return "/admin/adminNoticeList";
     }
 
     @GetMapping("/notice/detail/{id}")
     public String detail(Model model, @PathVariable("id") Long id) {
-        Notice notice = this.noticeService.getNotice(id);
+        Notice notice = noticeService.getNotice(id);
         model.addAttribute("notice", notice);
         return "/admin/adminNoticeDetail";
     }
 
-    //추가
+    //공지 추가
     @GetMapping("/notice/create")
     public String noticeCreate() {
         return "/admin/adminNoticeForm";
@@ -63,10 +74,10 @@ public class AdminController {
         return "redirect:/admin/notice/list";
     }
 
-    //수정
+    //공지 수정
     @GetMapping("/notice/update/{id}")
-    public String noticeUpdate(Model model, @PathVariable("id") Long id) {
-        Notice notice = this.noticeService.getNotice(id);
+    public String noticeUpdate(@PathVariable("id") Long id) {
+        Notice notice = noticeService.getNotice(id);
         notice.setTitle(notice.getTitle());
         notice.setContent(notice.getContent());
         return "/admin/adminNoticeForm";
@@ -78,18 +89,31 @@ public class AdminController {
         return String.format("redirect:/admin/notice/list", id);
     }
 
-    //삭제
+    //공지 삭제
     @GetMapping("/notice/delete/{id}")
     public String noticeDelete(@PathVariable("id") Long id) {
-        Notice notice = this.noticeService.getNotice(id);
-        this.noticeService.delete(notice);
+        Notice notice = noticeService.getNotice(id);
+        noticeService.delete(notice);
         return "redirect:/admin/notice/list";
     }
-    @GetMapping("/board")
-    public String adminBoard(Model model) {
-        List<Board> boardList = this.boardRepository.findAll();
-        model.addAttribute("boardList", boardList);
-        return "/admin/adminBoard";
+
+    // 삭제 버튼
+    @PostMapping("/deleteMember/{id}")
+    public String deleteMember(@PathVariable("id") String userId) {
+        memberService.deleteByUserId(userId);
+        return "redirect:/admin/members";
+    }
+
+    @PostMapping("/deleteBoard/{id}")
+    public String deleteBoard(@PathVariable("id") Long id) {
+        boardService.deleteById(id);
+        return "redirect:/admin/board";
+    }
+
+    @PostMapping("/deleteNotice/{id}")
+    public String deleteNotice(@PathVariable("id") Long id) {
+        noticeService.deleteById(id);
+        return "redirect:/admin/notice/list";
     }
 
 }

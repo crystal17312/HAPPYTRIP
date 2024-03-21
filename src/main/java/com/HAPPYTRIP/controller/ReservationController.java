@@ -5,7 +5,6 @@ import com.HAPPYTRIP.api.AirlineApi;
 import com.HAPPYTRIP.api.AirlineDto;
 import com.HAPPYTRIP.domain.*;
 import com.HAPPYTRIP.dto.AirForm;
-import com.HAPPYTRIP.dto.MemberForm;
 import com.HAPPYTRIP.dto.ReservationDTO;
 import com.HAPPYTRIP.dto.SelectedFlightsDTO;
 import com.HAPPYTRIP.service.FlightService;
@@ -16,8 +15,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,7 +35,6 @@ import java.util.Optional;
 @Slf4j
 public class ReservationController {
 
-    private final ObjectMapper objectMapper;
     private final AirlineApi airlineApi;
     private final FlightService flightService;
     private final ReservationService reservationService;

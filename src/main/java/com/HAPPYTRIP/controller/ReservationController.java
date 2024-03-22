@@ -40,6 +40,7 @@ public class ReservationController {
     private final ReservationService reservationService;
     private final MemberService memberService;
 
+
     @PostMapping("/booking")
     public String searchFlights(@Valid AirForm airForm, BindingResult bindingResult, Model model) {
 
@@ -58,22 +59,9 @@ public class ReservationController {
         try{
 
             HashMap<String,String> airMap=new HashMap<>();
-            airMap.put("무안", "NAARKJB");
-            airMap.put("광주", "NAARKJJ");
-            airMap.put("군산", "NAARKJK");
-            airMap.put("여수", "NAARKJY");
-            airMap.put("원주", "NAARKNW");
-            airMap.put("양양", "NAARKNY");
             airMap.put("제주", "NAARKPC");
             airMap.put("김해", "NAARKPK");
-            airMap.put("사천", "NAARKPS");
-            airMap.put("울산", "NAARKPU");
-            airMap.put("인천", "NAARKSI");
             airMap.put("김포", "NAARKSS");
-            airMap.put("포항", "NAARKTH");
-            airMap.put("대구", "NAARKTN");
-            airMap.put("청주", "NAARKTN");
-
             String tripType= airForm.getRoundWay();
 
             System.out.println("------------------------");

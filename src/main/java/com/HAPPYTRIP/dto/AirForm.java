@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 public class AirForm {
 
-
     private String roundWay;
 
     private String oneWay;

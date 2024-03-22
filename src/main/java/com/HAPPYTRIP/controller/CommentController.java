@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -39,7 +38,7 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/update/{id}")
     public String commentUpdate(@PathVariable("id") Long id, Principal principal) {
-        Comment comment = this.commentService.getComment(id);
+        Comment comment = commentService.getComment(id);
         if(!comment.getAuthor().equals(principal.getName())) {
             throw new
                     ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
@@ -51,7 +50,7 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/update/{id}")
     public String commentUpdate(@RequestParam(value = "content") String content, @PathVariable("id") Long id, Principal principal) {
-        Comment comment = this.commentService.getComment(id);
+        Comment comment = commentService.getComment(id);
         if (!comment.getAuthor().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }

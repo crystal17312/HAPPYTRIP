@@ -9,7 +9,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -34,7 +33,7 @@ public class MemberController {
             return "join";
         }
 
-        //if 비밀번호, 비밀번호 확인이 일치하지 않음
+//        if 비밀번호, 비밀번호 확인이 일치하지 않음
 //        if (!memberForm.getPassword().equals(memberForm.getCheckpassword())) {
 //
 //            //errorCode는 "passwordInCorrect"로 정의

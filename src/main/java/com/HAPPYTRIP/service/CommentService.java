@@ -18,7 +18,7 @@ public class CommentService {
 
     //조회
     public Comment getComment(Long id) {
-        Optional<Comment> comment = this.commentRepository.findById(id);
+        Optional<Comment> comment = commentRepository.findById(id);
         if (comment.isPresent()) {
             return comment.get();
         } else {

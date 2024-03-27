@@ -46,8 +46,8 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/update/{id}")
     public String commentUpdate(@RequestParam(value = "content") String content, @PathVariable("id") Long id) {
+        Comment comment=commentService.getComment(id);
         commentService.update(id,content);
-        Comment comment = commentService.getComment(id);
         return String.format("redirect:/board/detail/%s", comment.getBoard().getId());
     }
 

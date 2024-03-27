@@ -18,7 +18,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     public Comment getComment(Long id) {
-        Optional<Comment> comment = this.commentRepository.findById(id);
+        Optional<Comment> comment = commentRepository.findById(id);
         if (comment.isPresent()) {
             return comment.get();
         } else {
@@ -32,17 +32,17 @@ public class CommentService {
         comment.setContent(content);
         comment.setBoard(board);
         comment.setMemberId(member);
-        this.commentRepository.save(comment);
+        commentRepository.save(comment);
         return comment;
     }
 
     //수정
-    public void update(Long id, String content, String author) {
-        Optional<Comment> optionalComment = this.commentRepository.findById(id);
+    public void update(Long id, String content) {
+        Optional<Comment> optionalComment = commentRepository.findById(id);
         if (optionalComment.isPresent()) {
             Comment c = optionalComment.get();
             c.setContent(content);
-            this.commentRepository.save(c);
+            commentRepository.save(c);
         } else {
             throw new EntityNotFoundException("댓글을 찾을 수 없습니다.");
         }

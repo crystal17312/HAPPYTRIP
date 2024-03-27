@@ -1,6 +1,5 @@
 package com.HAPPYTRIP.service;
 
-import com.HAPPYTRIP.domain.Board;
 import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.domain.UserRole;
 import com.HAPPYTRIP.repository.MemberRepository;
@@ -9,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -21,7 +21,11 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
 
-    public Member getMember(String userId){
+    public List<Member> getList() {
+        return memberRepository.findAll();
+    }
+
+    public Member getMember(String userId) {
         Optional<Member> optionalMember=memberRepository.findByUserId(userId);
         if(optionalMember.isPresent()){
             return optionalMember.get();
@@ -44,22 +48,18 @@ public class MemberService {
     }
 
     //회원정보 수정
-        @Transactional
         public Member update(Member member) {
             Member persistence = memberRepository.findByUserId(member.getUserId())
                     .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
 
-            // 전달받은 회원 객체의 정보로 데이터베이스에 저장된 회원 정보를 업데이트합니다.
             persistence.setName(member.getName());
             persistence.setPhone(member.getPhone());
 
-            // 새로운 비밀번호가 전달되었다면, 비밀번호를 암호화하여 업데이트합니다.
             if (member.getPassword() != null && !member.getPassword().isEmpty()) {
                 String encodedPassword = passwordEncoder.encode(member.getPassword());
                 persistence.setPassword(encodedPassword);
             }
 
-            // 업데이트된 회원 정보를 저장하고 반환합니다.
             return memberRepository.save(persistence);
         }
 
@@ -67,6 +67,7 @@ public class MemberService {
         public Optional<Member> findByUserId(String userId) {
         return memberRepository.findByUserId(userId);
     }
+
 
     @Transactional
     public Optional<Member> findByName(String name) {

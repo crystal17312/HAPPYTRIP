@@ -27,17 +27,16 @@ public class MypageController {
         return "mypage";
     }
 
+    //회원정보 수정
     @GetMapping("/update")
     public String updateForm(Model model, Principal principal) {
 
         String username = principal.getName();
-        // 사용자 정보를 이용하여 member 객체 생성 혹은 조회
         Optional<Member> optionalMember = memberService.findByUserId(username);
         optionalMember.ifPresent(member -> model.addAttribute("member", member));
         return "/updateForm";
     }
 
-    //회원정보 수정
     @PostMapping("/update")
     public String updatePassword(@RequestParam("name") String name,
                                  @RequestParam("phone") String phone,
@@ -72,7 +71,7 @@ public class MypageController {
             memberService.deleteByUserId(userId);
             return "redirect:/member/logout";
         } else {
-            // 비밀번호가 일치하지 않는 경우 에러 플래그 설정
+            // 비밀번호가 일치하지 않는 경우 에러
             model.addAttribute("error", true);
             return "/deleteCheck";
         }

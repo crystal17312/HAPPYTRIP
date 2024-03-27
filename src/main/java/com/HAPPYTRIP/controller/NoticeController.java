@@ -1,6 +1,5 @@
 package com.HAPPYTRIP.controller;
 
-import com.HAPPYTRIP.domain.Board;
 import com.HAPPYTRIP.domain.Notice;
 import com.HAPPYTRIP.service.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -20,17 +19,17 @@ public class NoticeController {
     private final NoticeService noticeService;
 
 
+    //조회
     @GetMapping("/list")
     public String list(Model model) {
-        List<Notice> noticeList = this.noticeService.getList();
+        List<Notice> noticeList = noticeService.getList();
         model.addAttribute("noticeList", noticeList);
         return "noticeList";
     }
 
-
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Long id) {
-        Notice notice = this.noticeService.getNotice(id);
+        Notice notice = noticeService.getNotice(id);
         model.addAttribute("notice", notice);
         return "noticeDetail";
     }

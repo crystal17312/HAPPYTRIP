@@ -5,7 +5,6 @@ import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.domain.Reservation;
 import com.HAPPYTRIP.domain.ReservationStatus;
 import com.HAPPYTRIP.repository.ReservationRepository;
-import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

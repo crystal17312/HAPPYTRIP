@@ -17,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class MemberController {
 
-    //의존성 주입 @autowired 생략
     private final MemberService memberService;
 
+    //회원가입
     @GetMapping("/join")
     public String JoinForm(MemberForm memberForm) {
         return "join";
     }
-
 
     @PostMapping("/join")
     public String join(@Valid MemberForm memberForm, BindingResult bindingResult) {
@@ -51,3 +50,4 @@ public class MemberController {
         return "redirect:/member/login";
     }
 }
+

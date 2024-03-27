@@ -1,6 +1,5 @@
 package com.HAPPYTRIP.config;
 
-import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
@@ -17,25 +15,6 @@ import java.util.Optional;
 public class AuditingBeanConfiguration {
 
     private final MemberService memberService;
-
-//    @Bean
-//    public AuditorAware<String> auditorProvider(){
-//        return new AuditorAware<String>() {
-//            @Override
-//            public Optional<String> getCurrentAuditor() {
-//                Object principal =SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//                if(principal instanceof UserDetails){
-//                    String userId=((UserDetails)principal).getUsername();
-//                    Optional<Member> memberOptional=memberService.findByUserId(userId);
-//                    if(memberOptional.isPresent()) {
-//                        return Optional.of(memberOptional.get().getName());
-//                    }
-//                }
-//                return Optional.empty();
-//
-//            }
-//        };
-//    }
 
     @Bean
     public AuditorAware<String> auditorProvider() {

@@ -8,7 +8,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -17,6 +16,7 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
 
+    //조회
     public Comment getComment(Long id) {
         Optional<Comment> comment = commentRepository.findById(id);
         if (comment.isPresent()) {
@@ -50,6 +50,6 @@ public class CommentService {
 
     //삭제
     public void delete(Comment comment) {
-        this.commentRepository.delete(comment);
+        commentRepository.delete(comment);
     }
 }

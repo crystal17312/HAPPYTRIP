@@ -38,11 +38,12 @@ public class CommentService {
     }
 
     //수정
-    public void update(Long id, String content, String author) {
+    public void update(Long id, String content, Member member) {
         Optional<Comment> optionalComment = commentRepository.findById(id);
         if (optionalComment.isPresent()) {
             Comment c = optionalComment.get();
             c.setContent(content);
+            c.setMemberId(member);
             commentRepository.save(c);
         } else {
             throw new EntityNotFoundException("댓글을 찾을 수 없습니다.");

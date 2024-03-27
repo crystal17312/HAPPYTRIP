@@ -20,7 +20,6 @@ import java.util.UUID;
 
 @EnableJpaAuditing
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
-@EnableJpaAuditing
 @Slf4j
 public class HappytripApplication {
 

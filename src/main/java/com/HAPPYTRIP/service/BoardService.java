@@ -44,13 +44,13 @@ public class BoardService {
 
     //수정
     public void update(Long id, String title, String content, Member member) {
-        Optional<Board> optionalBoard = this.boardRepository.findById(id);
+        Optional<Board> optionalBoard = boardRepository.findById(id);
         if (optionalBoard.isPresent()) {
             Board b = optionalBoard.get();
             b.setTitle(title);
             b.setContent(content);
             b.setMemberId(member);
-            this.boardRepository.save(b);
+            boardRepository.save(b);
         } else {
             throw new EntityNotFoundException("게시물을 찾을 수 없습니다.");
         }
@@ -59,6 +59,9 @@ public class BoardService {
     //삭제
     public void delete(Board board) {
         boardRepository.delete(board);
+    }
+    public void deleteById(Long id) {
+        boardRepository.deleteById(id);
     }
   
 }

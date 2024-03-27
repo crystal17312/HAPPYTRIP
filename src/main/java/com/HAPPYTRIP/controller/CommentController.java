@@ -33,7 +33,7 @@ public class CommentController {
     public String createComment(@PathVariable("id") Long id, @RequestParam(value = "content") String content, Principal principal) {
         String username = principal.getName();
         Member member=memberService.getMember(username);
-        Board board = this.boardService.getBoard(id);
+        Board board = boardService.getBoard(id);
         this.commentService.create(board, content, member);
         return String.format("redirect:/board/detail/%s", id);
     }
@@ -41,12 +41,8 @@ public class CommentController {
     //수정
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/update/{id}")
-    public String commentUpdate(Model model, @PathVariable("id") Long id, Principal principal) {
-        Comment comment = this.commentService.getComment(id);
-        if(!comment.getMemberId().toString().equals(principal.getName())) {
-            throw new
-                    ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-        }
+    public String commentUpdate(@PathVariable("id") Long id) {
+        Comment comment = commentService.getComment(id);
         comment.setContent(comment.getContent());
         return "commentForm";
     }
@@ -54,12 +50,9 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/update/{id}")
     public String commentUpdate(@RequestParam(value = "content") String content, @PathVariable("id") Long id, Principal principal) {
-        Comment comment = commentService.getComment(id);
-        if (!comment.getMemberId().toString().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-        }
         String username = principal.getName();
-        this.commentService.update(id,content, username);
+        Member member = memberService.getMember(username);
+        commentService.update(id,content, member);
         return String.format("redirect:/board/detail/%s", id);
     }
 
@@ -67,11 +60,8 @@ public class CommentController {
     //삭제
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String commentDelete(Principal principal, @PathVariable("id") Long id) {
+    public String commentDelete(@PathVariable("id") Long id) {
         Comment comment = commentService.getComment(id);
-        if (!comment.getMemberId().toString().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
-        }
         commentService.delete(comment);
         return String.format("redirect:/board/detail/%s", comment.getBoard().getId());
     }

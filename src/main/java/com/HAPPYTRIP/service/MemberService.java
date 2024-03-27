@@ -23,7 +23,11 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
 
-    public Member getMember(String userId){
+    public List<Member> getList() {
+        return memberRepository.findAll();
+    }
+
+    public Member getMember(String userId) {
         Optional<Member> optionalMember=memberRepository.findByUserId(userId);
         if(optionalMember.isPresent()){
             return optionalMember.get();

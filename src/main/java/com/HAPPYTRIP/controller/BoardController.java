@@ -3,6 +3,7 @@ package com.HAPPYTRIP.controller;
 import com.HAPPYTRIP.domain.Board;
 import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.service.BoardService;
+import com.HAPPYTRIP.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.lang.ref.PhantomReference;
 import java.security.Principal;
 import java.util.List;
 
@@ -58,11 +58,8 @@ public class BoardController {
     //수정
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/update/{id}")
-    public String boardUpdate(Model model, @PathVariable("id") Long id, Principal principal) {
-        Board board = this.boardservice.getBoard(id);
-//        if(!board.getMemberId().toString().equals(principal.getName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-//        }
+    public String boardUpdate(@PathVariable("id") Long id) {
+        Board board = boardservice.getBoard(id);
         board.setTitle(board.getTitle());
         board.setContent(board.getContent());
         return "boardForm";
@@ -71,10 +68,6 @@ public class BoardController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/update/{id}")
     public String boardUpdate(@RequestParam(value = "title") String title, @RequestParam(value = "content") String content, @PathVariable("id") Long id, Principal principal) {
-        Board board = this.boardservice.getBoard(id);
-//        if (!board.getMemberId().toString().equals(principal.getName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-//        }
         String username = principal.getName();
         Member member=memberService.getMember(username);
         boardservice.update(id, title, content, member);
@@ -84,11 +77,8 @@ public class BoardController {
     //삭제
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String boardDelete(Principal principal, @PathVariable("id") Long id) {
+    public String boardDelete(@PathVariable("id") Long id) {
         Board board = boardservice.getBoard(id);
-        if (!board.getMemberId().toString().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
-        }
         boardservice.delete(board);
         return "redirect:/home";
     }

@@ -1,8 +1,6 @@
 package com.HAPPYTRIP.service;
 
-import com.HAPPYTRIP.domain.Board;
 import com.HAPPYTRIP.domain.Member;
-import com.HAPPYTRIP.domain.Notice;
 import com.HAPPYTRIP.domain.UserRole;
 import com.HAPPYTRIP.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

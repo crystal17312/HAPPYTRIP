@@ -7,7 +7,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,13 +42,12 @@ public class BoardService {
     }
 
     //수정
-    public void update(Long id, String title, String content, Member member) {
+    public void update(Long id, String title, String content) {
         Optional<Board> optionalBoard = boardRepository.findById(id);
         if (optionalBoard.isPresent()) {
             Board b = optionalBoard.get();
             b.setTitle(title);
             b.setContent(content);
-            b.setMemberId(member);
             boardRepository.save(b);
         } else {
             throw new EntityNotFoundException("게시물을 찾을 수 없습니다.");

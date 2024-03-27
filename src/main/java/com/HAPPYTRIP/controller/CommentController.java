@@ -8,12 +8,10 @@ import com.HAPPYTRIP.service.BoardService;
 import com.HAPPYTRIP.service.CommentService;
 import com.HAPPYTRIP.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 
@@ -34,7 +32,7 @@ public class CommentController {
         String username = principal.getName();
         Member member=memberService.getMember(username);
         Board board = boardService.getBoard(id);
-        this.commentService.create(board, content, member);
+        commentService.create(board, content, member);
         return String.format("redirect:/board/detail/%s", id);
     }
 
@@ -42,18 +40,15 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/update/{id}")
     public String commentUpdate(@PathVariable("id") Long id) {
-        Comment comment = commentService.getComment(id);
-        comment.setContent(comment.getContent());
         return "commentForm";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/update/{id}")
-    public String commentUpdate(@RequestParam(value = "content") String content, @PathVariable("id") Long id, Principal principal) {
-        String username = principal.getName();
-        Member member = memberService.getMember(username);
-        commentService.update(id,content, member);
-        return String.format("redirect:/board/detail/%s", id);
+    public String commentUpdate(@RequestParam(value = "content") String content, @PathVariable("id") Long id) {
+        commentService.update(id,content);
+        Comment comment = commentService.getComment(id);
+        return String.format("redirect:/board/detail/%s", comment.getBoard().getId());
     }
 
 

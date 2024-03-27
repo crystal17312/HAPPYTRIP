@@ -8,7 +8,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -38,12 +37,11 @@ public class CommentService {
     }
 
     //수정
-    public void update(Long id, String content, Member member) {
+    public void update(Long id, String content) {
         Optional<Comment> optionalComment = commentRepository.findById(id);
         if (optionalComment.isPresent()) {
             Comment c = optionalComment.get();
             c.setContent(content);
-            c.setMemberId(member);
             commentRepository.save(c);
         } else {
             throw new EntityNotFoundException("댓글을 찾을 수 없습니다.");

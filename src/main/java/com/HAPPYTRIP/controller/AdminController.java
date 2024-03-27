@@ -3,8 +3,6 @@ package com.HAPPYTRIP.controller;
 import com.HAPPYTRIP.domain.Board;
 import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.domain.Notice;
-import com.HAPPYTRIP.repository.BoardRepository;
-import com.HAPPYTRIP.repository.MemberRepository;
 import com.HAPPYTRIP.service.BoardService;
 import com.HAPPYTRIP.service.MemberService;
 import com.HAPPYTRIP.service.NoticeService;

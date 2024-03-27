@@ -5,12 +5,10 @@ import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.service.BoardService;
 import com.HAPPYTRIP.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -59,19 +57,14 @@ public class BoardController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/update/{id}")
     public String boardUpdate(@PathVariable("id") Long id) {
-        Board board = boardservice.getBoard(id);
-        board.setTitle(board.getTitle());
-        board.setContent(board.getContent());
         return "boardForm";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/update/{id}")
-    public String boardUpdate(@RequestParam(value = "title") String title, @RequestParam(value = "content") String content, @PathVariable("id") Long id, Principal principal) {
-        String username = principal.getName();
-        Member member=memberService.getMember(username);
-        boardservice.update(id, title, content, member);
-        return String.format("redirect:/board/detail/%s", id);
+    public String boardUpdate(@RequestParam(value = "title") String title, @RequestParam(value = "content") String content, @PathVariable("id") Long id) {
+        boardservice.update(id, title, content);
+        return "redirect:/board/list";
     }
 
     //삭제

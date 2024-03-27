@@ -57,7 +57,7 @@
                 <td>
                     <a th:href="@{|/notice/detail/${notice.id}|}" th:text="${notice.title}"></a>
                 </td>
-                <td th:text="${#temporals.format(notice.date, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${#temporals.format(notice.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
             </tbody>
         </table>

@@ -16,7 +16,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/mypage")
 @RequiredArgsConstructor
-@PreAuthorize("isAuthenticated()")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class MypageController {
 
     private final MemberService memberService;

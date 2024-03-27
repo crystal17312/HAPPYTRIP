@@ -1,5 +1,6 @@
 package com.HAPPYTRIP.service;
 
+import com.HAPPYTRIP.domain.Board;
 import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.domain.UserRole;
 import com.HAPPYTRIP.repository.MemberRepository;
@@ -18,6 +19,16 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
+
+
+    public Member getMember(String userId){
+        Optional<Member> optionalMember=memberRepository.findByUserId(userId);
+        if(optionalMember.isPresent()){
+            return optionalMember.get();
+        }else{
+            throw new RuntimeException("Member not found");
+        }
+    }
 
     //회원생성
     public Member create(String userId, String password, String name, String phone, String birthday, UserRole role) {
@@ -57,6 +68,11 @@ public class MemberService {
         return memberRepository.findByUserId(userId);
     }
 
+    @Transactional
+    public Optional<Member> findByName(String name) {
+            return memberRepository.findByName(name);
+    }
+
     //회원탈퇴
     @Transactional
     public void deleteByUserId(String userId) {
@@ -73,5 +89,4 @@ public class MemberService {
             return false;
         }
     }
-
 }

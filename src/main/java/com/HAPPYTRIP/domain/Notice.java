@@ -8,20 +8,15 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-public class Notice {
+public class Notice extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Notice_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member memberId;
-
     private String title;
 
     private String content;
 
-    private LocalDateTime date;
 }

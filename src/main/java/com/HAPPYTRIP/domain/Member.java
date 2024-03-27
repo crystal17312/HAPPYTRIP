@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,5 +27,4 @@ public class Member {
     //권한
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
 }

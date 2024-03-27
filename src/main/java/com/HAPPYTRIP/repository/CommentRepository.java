@@ -1,11 +1,11 @@
 package com.HAPPYTRIP.repository;
 
-import com.HAPPYTRIP.domain.Payment;
+import com.HAPPYTRIP.domain.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 
-//public interface PaymentRepository extends JpaRepository<Payment,Long> {
-//
-//
-//}
+@Repository
+public interface CommentRepository extends JpaRepository<Comment, Long> {
+
+}

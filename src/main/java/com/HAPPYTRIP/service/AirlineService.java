@@ -1,9 +1,7 @@
 package com.HAPPYTRIP.service;
 
 
-import com.HAPPYTRIP.domain.Flight;
 import com.HAPPYTRIP.repository.AirlineRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

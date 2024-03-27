@@ -1,6 +1,7 @@
 package com.HAPPYTRIP.service;
 
 import com.HAPPYTRIP.domain.Board;
+import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.repository.BoardRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -31,23 +32,22 @@ public class BoardService {
 
 
     //추가
-    public void create(String title, String content, String author) {
+    public void create(String title, String content, Member member) {
         Board b = new Board();
         b.setTitle(title);
         b.setContent(content);
-        b.setDate(LocalDateTime.now());
-        b.setAuthor(author);
+        b.setMemberId(member);
         this.boardRepository.save(b);
     }
 
     //수정
-    public void update(Long id, String title, String content, String author) {
+    public void update(Long id, String title, String content, Member member) {
         Optional<Board> optionalBoard = this.boardRepository.findById(id);
         if (optionalBoard.isPresent()) {
             Board b = optionalBoard.get();
             b.setTitle(title);
             b.setContent(content);
-            b.setAuthor(author);
+            b.setMemberId(member);
             this.boardRepository.save(b);
         } else {
             throw new EntityNotFoundException("게시물을 찾을 수 없습니다.");

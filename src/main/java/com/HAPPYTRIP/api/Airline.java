@@ -31,6 +31,7 @@ public class Airline {
 
     private String duration;
 
+    private Integer passenger;
 
-    // getter 및 setter 메서드
+
 }

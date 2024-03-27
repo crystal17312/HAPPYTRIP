@@ -9,14 +9,17 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class Board {
+public class Board extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Board_id")
     private Long id;
 
-    private String author;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member memberId;
+
 
     private String title;
 
@@ -25,5 +28,5 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Comment> commentList;
 
-    private LocalDateTime date;
+
 }

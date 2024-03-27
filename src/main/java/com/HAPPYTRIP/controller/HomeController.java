@@ -22,19 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 public class HomeController {
 
-    private final AirlineApi airlineApi;
     @GetMapping("/home")
     public String home(AirForm airForm) {
         System.out.println("+++++++++++++++++++++");
         return "home";
     }
 
-
-
-
-  //  @PreAuthorize("isAuthenticated()")
 
 }

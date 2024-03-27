@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/member")
-@RequiredArgsConstructor
 public class LoginController {
 
     //로그인

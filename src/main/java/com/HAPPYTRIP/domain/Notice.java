@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-public class Notice {
+public class Notice extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,5 +19,4 @@ public class Notice {
 
     private String content;
 
-    private LocalDateTime date;
 }

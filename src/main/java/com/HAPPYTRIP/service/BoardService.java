@@ -18,11 +18,13 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
+    //조회
     public List<Board> getList() {
-        return this.boardRepository.findAll();
+        return boardRepository.findAll();
     }
+
     public Board getBoard(Long id) {
-        Optional<Board> board = this.boardRepository.findById(id);
+        Optional<Board> board = boardRepository.findById(id);
         if (board.isPresent()) {
             return board.get();
         } else {
@@ -56,7 +58,7 @@ public class BoardService {
 
     //삭제
     public void delete(Board board) {
-        this.boardRepository.delete(board);
+        boardRepository.delete(board);
     }
-
+  
 }

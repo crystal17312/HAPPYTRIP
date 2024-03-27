@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,7 +30,7 @@ public class CommentController {
     //추가
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
-    public String createComment(Model model, @PathVariable("id") Long id, @RequestParam(value = "content") String content, Principal principal) {
+    public String createComment(@PathVariable("id") Long id, @RequestParam(value = "content") String content, Principal principal) {
         String username = principal.getName();
         Member member=memberService.getMember(username);
         Board board = this.boardService.getBoard(id);
@@ -55,23 +54,25 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/update/{id}")
     public String commentUpdate(@RequestParam(value = "content") String content, @PathVariable("id") Long id, Principal principal) {
-        Comment comment = this.commentService.getComment(id);
+        Comment comment = commentService.getComment(id);
         if (!comment.getMemberId().toString().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         String username = principal.getName();
-        commentService.update(id,content, username);
+        this.commentService.update(id,content, username);
         return String.format("redirect:/board/detail/%s", id);
     }
 
+
+    //삭제
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String commentDelete(Principal principal, @PathVariable("id") Long id) {
-        Comment comment = this.commentService.getComment(id);
+        Comment comment = commentService.getComment(id);
         if (!comment.getMemberId().toString().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
-        this.commentService.delete(comment);
+        commentService.delete(comment);
         return String.format("redirect:/board/detail/%s", comment.getBoard().getId());
     }
 }

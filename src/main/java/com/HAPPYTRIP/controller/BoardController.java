@@ -3,7 +3,6 @@ package com.HAPPYTRIP.controller;
 import com.HAPPYTRIP.domain.Board;
 import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.service.BoardService;
-import com.HAPPYTRIP.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,9 +23,10 @@ public class BoardController {
     private final BoardService boardservice;
     private final MemberService memberService;
 
+    //조회
     @GetMapping("/list")
     public String list(Model model) {
-        List<Board> boardList = this.boardservice.getList();
+        List<Board> boardList = boardservice.getList();
         model.addAttribute("boardList", boardList);
         return "boardList";
     }
@@ -34,7 +34,7 @@ public class BoardController {
 
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable("id") Long id) {
-        Board board = this.boardservice.getBoard(id);
+        Board board = boardservice.getBoard(id);
         model.addAttribute("board", board);
         return "boardDetail";
     }
@@ -85,11 +85,11 @@ public class BoardController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String boardDelete(Principal principal, @PathVariable("id") Long id) {
-        Board board = this.boardservice.getBoard(id);
+        Board board = boardservice.getBoard(id);
         if (!board.getMemberId().toString().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
-        this.boardservice.delete(board);
+        boardservice.delete(board);
         return "redirect:/home";
     }
 }

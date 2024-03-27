@@ -55,7 +55,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    //스프링 시큐리티의 인증을 처리
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

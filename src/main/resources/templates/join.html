@@ -107,35 +107,35 @@
   </main>
 </div>
 
-<!--<script th:inline="javascript">-->
-<!--  $(document).ready(function() {-->
-<!--    //비밀번호 일치-->
-<!--    function checkpw() {-->
-<!--      var userPW1 = document.getElementById("password").value;-->
-<!--      var userPW2 = document.getElementById("checkpassword").value;-->
+<script th:inline="javascript">
+  $(document).ready(function() {
+    //비밀번호 일치
+    function checkpw() {
+      var userPW1 = document.getElementById("password").value;
+      var userPW2 = document.getElementById("checkpassword").value;
 
-<!--      if (userPW1 != userPW2) {-->
-<!--        document.getElementById('check').innerHTML = '비밀번호가 일치하지 않습니다. 다시 입력해 주세요';-->
-<!--        return false;-->
-<!--      }-->
-<!--    }-->
+      if (userPW1 != userPW2) {
+        document.getElementById('check').innerHTML = '비밀번호가 일치하지 않습니다. 다시 입력해 주세요';
+        return false;
+      }
+    }
 
-<!--    //아이디 확인-->
-<!--    function checkDuplicate() {-->
-<!--      var userId = document.getElementById("id").value;-->
+    //아이디 확인
+    function checkDuplicate() {
+      var userId = document.getElementById("id").value;
 
-<!--      $.ajax({-->
-<!--        type: "GET",-->
-<!--        url: "/member/checkDuplicate/" + userId,-->
-<!--        success: function (response) {-->
-<!--          alert(response);-->
-<!--        },-->
-<!--        error: function (error) {-->
-<!--          alert("중복된 아이디입니다.");-->
-<!--        }-->
-<!--      });-->
-<!--    }-->
-<!--  });-->
-<!--</script>-->
+      $.ajax({
+        type: "GET",
+        url: "/member/checkDuplicate/" + userId,
+        success: function (response) {
+          alert(response);
+        },
+        error: function (error) {
+          alert("중복된 아이디입니다.");
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>

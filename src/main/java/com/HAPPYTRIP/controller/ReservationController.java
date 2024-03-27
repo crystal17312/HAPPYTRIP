@@ -64,14 +64,15 @@ public class ReservationController {
             airMap.put("김포", "NAARKSS");
             String tripType= airForm.getRoundWay();
 
-            System.out.println("------------------------");
-            System.out.println(airForm.getArrival()+airForm.getDeparture());
+            log.info("------------------------");
+            log.info(airForm.getArrival()+airForm.getDeparture());
+            log.info("airFormPassenger {}",airForm.getPassenger());
+
 
 
             if (tripType != null && tripType.equals("왕복")) {
                 String roundWayResponseJson1=airlineApi.getAirline(airMap.get(airForm.getDeparture()), airMap.get(airForm.getArrival()), airForm.getDepartureDate1(), "KAL");
                 String roundWayResponseJson2=airlineApi.getAirline(airMap.get(airForm.getArrival()), airMap.get(airForm.getDeparture()), airForm.getDepartureDate2(), "KAL");
-
                 ObjectMapper objectMapper1 = new ObjectMapper();
 
 
@@ -82,7 +83,7 @@ public class ReservationController {
 
 
                     for (Airline item : itemList1) {
-                        // 각 항목의 필드를 출력합니다.
+
                         System.out.println("Airline Name: " + item.getAirlineNm());
                         System.out.println("Arrival Airport Name: " + item.getArrAirportNm());
                         System.out.println("Arrival Planned Time: " + item.getArrPlandTime());
@@ -108,6 +109,7 @@ public class ReservationController {
                         String durationTime1 = hours + ":" + minutes;
 
                         item.setDuration(durationTime1);
+                        item.setPassenger(airForm.getPassenger());
 
                     }
 
@@ -122,7 +124,7 @@ public class ReservationController {
                     List<Airline> itemList2=items2.getItem();
 
                     for (Airline item : itemList2) {
-                        // 각 항목의 필드를 출력합니다.
+
                         System.out.println("Airline Name: " + item.getAirlineNm());
                         System.out.println("Arrival Airport Name: " + item.getArrAirportNm());
                         System.out.println("Arrival Planned Time: " + item.getArrPlandTime());
@@ -160,7 +162,7 @@ public class ReservationController {
 
             } else {
                 String oneWayResponseJson=airlineApi.getAirline(airMap.get(airForm.getDeparture()), airMap.get(airForm.getArrival()), airForm.getDepartureDate1(), "KAL");
-
+                Integer passenger=airForm.getPassenger();
                 ObjectMapper objectMapper = new ObjectMapper();
                 AirlineDto airlineResponse = objectMapper.readValue(oneWayResponseJson, AirlineDto.class);
 
@@ -198,6 +200,7 @@ public class ReservationController {
                         long minutes = diffMinutes % 60;
                         String durationTime1 = hours + ":" + minutes;
                         item.setDuration(durationTime1);
+                        item.setPassenger(airForm.getPassenger());
                     }
                     model.addAttribute("itemList1", itemList1);
                 } else {

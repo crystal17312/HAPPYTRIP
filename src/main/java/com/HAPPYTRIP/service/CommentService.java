@@ -2,6 +2,7 @@ package com.HAPPYTRIP.service;
 
 import com.HAPPYTRIP.domain.Board;
 import com.HAPPYTRIP.domain.Comment;
+import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.repository.CommentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +28,11 @@ public class CommentService {
     }
 
     //추가
-    public Comment create(Board board, String content, String author) {
+    public Comment create(Board board, String content, Member member) {
         Comment comment = new Comment();
         comment.setContent(content);
-        comment.setDate(LocalDateTime.now());
         comment.setBoard(board);
-        comment.setAuthor(author);
+        comment.setMemberId(member);
         commentRepository.save(comment);
         return comment;
     }
@@ -43,7 +43,6 @@ public class CommentService {
         if (optionalComment.isPresent()) {
             Comment c = optionalComment.get();
             c.setContent(content);
-            c.setAuthor(author);
             commentRepository.save(c);
         } else {
             throw new EntityNotFoundException("댓글을 찾을 수 없습니다.");

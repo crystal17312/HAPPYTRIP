@@ -35,7 +35,6 @@ public class NoticeService {
         Notice n = new Notice();
         n.setTitle(title);
         n.setContent(content);
-        n.setDate(LocalDateTime.now());
         this.noticeRepository.save(n);
     }
 

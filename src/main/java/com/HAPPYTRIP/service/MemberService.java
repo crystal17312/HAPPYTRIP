@@ -1,5 +1,6 @@
 package com.HAPPYTRIP.service;
 
+import com.HAPPYTRIP.domain.Board;
 import com.HAPPYTRIP.domain.Member;
 import com.HAPPYTRIP.domain.Notice;
 import com.HAPPYTRIP.domain.UserRole;
@@ -21,12 +22,17 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
 
-    //조회
-    public List<Member> getList() {
-        return memberRepository.findAll();
+
+    public Member getMember(String userId){
+        Optional<Member> optionalMember=memberRepository.findByUserId(userId);
+        if(optionalMember.isPresent()){
+            return optionalMember.get();
+        }else{
+            throw new RuntimeException("Member not found");
+        }
     }
 
-    //추가
+    //회원생성
     public Member create(String userId, String password, String name, String phone, String birthday, UserRole role) {
         Member member = new Member();
         member.setUserId(userId);
@@ -39,7 +45,7 @@ public class MemberService {
         return member;
     }
 
-    //수정
+    //회원정보 수정
         public Member update(Member member) {
             Member persistence = memberRepository.findByUserId(member.getUserId())
                     .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
@@ -55,15 +61,24 @@ public class MemberService {
             return memberRepository.save(persistence);
         }
 
+        @Transactional
         public Optional<Member> findByUserId(String userId) {
         return memberRepository.findByUserId(userId);
     }
 
-    //삭제
+
+    @Transactional
+    public Optional<Member> findByName(String name) {
+            return memberRepository.findByName(name);
+    }
+
+    //회원탈퇴
+    @Transactional
     public void deleteByUserId(String userId) {
         memberRepository.deleteByUserId(userId);
     }
 
+    @Transactional
     public boolean deleteCheck(String userId, String password) {
         Optional<Member> optionalMember = memberRepository.findByUserId(userId);
         if (optionalMember.isPresent()) {

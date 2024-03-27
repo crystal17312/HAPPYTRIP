@@ -55,11 +55,11 @@
         <tbody>
         <tr th:each="board, loop : ${boardList}">
             <td th:text="${loop.count}"></td>
-            <td th:text="${board.author}"></td>
+            <td th:text="${board.createdBy}"></td>
             <td>
                 <a th:href="@{|/board/detail/${board.id}|}" th:text="${board.title}"></a>
             </td>
-            <td th:text="${#temporals.format(board.date, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${#temporals.format(board.lastModifiedDate, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
         </tbody>
     </table>

@@ -35,11 +35,11 @@
     <div class="my-3 d-flex justify-content-end">
         <a th:href="@{|/board/update/${board.id}|}" class="btn btn-sm btn-outline-primary"
            sec:authorize="isAuthenticated()"
-           th:if="${board.author != null and #authentication.getPrincipal().getUsername() == board.author}"
+           th:if="${board.createdBy != null and #authentication.getPrincipal().getUsername() == board.memberId.userId}"
            th:text="수정"></a>
         <a href="javascript:void(0);" th:data-uri="@{|/board/delete/${board.id}|}"
            class="delete btn btn-sm btn-outline-danger" sec:authorize="isAuthenticated()"
-           th:if="${board.author != null and #authentication.getPrincipal().getUsername() == board.author}"
+           th:if="${board.createdBy != null and #authentication.getPrincipal().getUsername() == board.memberId.userId}"
            th:text="삭제"></a>
     </div>
 <div class="card my-3" th:each="comment : ${board.commentList}">
@@ -48,18 +48,18 @@
         <div class="d-flex justify-content-end">
             <div class="badge bg-light text-dark p-2 text-start">
                 <div class="mb-2">
-                    <span th:if="${comment.author != null}" th:text="${comment.author}"></span>
+                    <span th:if="${comment.createdBy != null}" th:text="${comment.createdBy}"></span>
                 </div>
-                <div th:text="${#temporals.format(comment.date, 'yyyy-MM-dd HH:mm')}"></div>
+                <div th:text="${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')}"></div>
             </div>
         </div>
         <a th:href="@{|/comment/update/${board.id}|}" class="btn btn-sm btn-outline-primary"
            sec:authorize="isAuthenticated()"
-           th:if="${board.author != null and #authentication.getPrincipal().getUsername() == comment.author}"
+           th:if="${board.createdBy != null and #authentication.getPrincipal().getUsername() == comment.memberId.userId}"
            th:text="수정"></a>
         <a href="javascript:void(0);" th:data-uri="@{|/comment/delete/${comment.id}|}"
            class="delete btn btn-sm btn-outline-danger" sec:authorize="isAuthenticated()"
-           th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author}"
+           th:if="${comment.createdBy != null and #authentication.getPrincipal().getUsername() == comment.memberId.userId}"
            th:text="삭제"></a>
     </div>
 </div>
